@@ -7,7 +7,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className='w-full p-20 h-[512px] bg-background text-white border-t border-white/10'>
+    <footer className='w-full p-20 h-[512px] bg-background text-foreground border-t border-white/10'>
       {/* Main Footer Content */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16'>
         {/* Company Info */}
@@ -104,7 +104,7 @@ const Footer = () => {
           href='https://calendly.com/muhammad-inam-f0mv/30min?month=2025-05'
           target='_blank'
           rel='noopener noreferrer'
-          className='bg-[#eaf337] justify-center rounded-lg text-black font-semibold gap-2 hover:bg-[#eaf337]/90 inline-flex items-center px-6 py-3 transition-colors m-auto'
+          className='bg-[#eaf337] justify-center rounded-lg text-background font-semibold gap-2 hover:bg-[#eaf337]/90 inline-flex items-center px-6 py-3 transition-colors m-auto'
         >
           Schedule a Call
           <ExternalLink className='ml-2 w-4 h-4' />

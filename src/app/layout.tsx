@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Layout from '@/components/Layout';
+import { ReactLenis } from '@/utils/lenis';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -31,11 +32,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body
-        className={`${plusJakartaSans.variable} {geistSans.variable} {geistMono.variable} antialiased`}
-      >
-        <Layout showSidebar={false}>{children}</Layout>
-      </body>
+      <ReactLenis root>
+        <body
+          className={`${plusJakartaSans.variable} {geistSans.variable} {geistMono.variable} antialiased`}
+        >
+          <Layout showSidebar={false}>{children}</Layout>
+        </body>
+      </ReactLenis>
     </html>
   );
 }

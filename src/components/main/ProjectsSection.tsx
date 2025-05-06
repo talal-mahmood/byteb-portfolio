@@ -141,7 +141,7 @@ export const ProjectsSection = () => {
 
                       {/* Title and Description */}
                       <div>
-                        <h3 className='text-xl md:text-2xl pr-6 font-bold tracking-tight text-white mb-3'>
+                        <h3 className='text-xl md:text-2xl pr-6 font-bold tracking-tight text-foreground mb-3'>
                           {project.title}
                         </h3>
                         <p className='text-zinc-400 pr-6 text-md leading-relaxed'>

@@ -55,7 +55,7 @@ export default function ProjectDetail({
   return (
     <section
       ref={ref}
-      className='px-20 py-10 mt-[128px] bg-background text-foreground'
+      className='px-20 py-10 {mt-[128px]} bg-background text-foreground'
     >
       {/* Title & SubTitle & Overview */}
       <motion.div
@@ -66,9 +66,9 @@ export default function ProjectDetail({
       >
         <h1 className='text-4xl md:text-5xl font-bold'>{title}</h1>
         <p className='text-zinc-400 text-lg md:text-xl'>{subTitle}</p>
-        {overview && (
+        {/* {overview && (
           <p className='text-zinc-500 text-base md:text-lg'>{overview}</p>
-        )}
+        )} */}
         <div className='flex gap-2 items-center justify-center'>
           {url && (
             <a
@@ -84,7 +84,7 @@ export default function ProjectDetail({
           {videoUrl && (
             <Link
               href={videoUrl}
-              className=' bg-bright-yellow rounded-full py-2 px-4 text-black font-semibold hover:opacity-90'
+              className=' bg-bright-yellow rounded-full py-2 px-4 text-background font-semibold hover:opacity-90'
             >
               ▶ Watch Video
             </Link>
@@ -99,7 +99,7 @@ export default function ProjectDetail({
           initial='hidden'
           animate={inView ? 'visible' : 'hidden'}
           variants={fadeIn}
-          className='bg-white text-black rounded-3xl p-8 flex flex-col h-full w-full'
+          className='bg-foreground text-background rounded-3xl p-8 flex flex-col h-full w-full'
         >
           <h2 className='text-2xl mb-2 font-bold'>{problemTitle}</h2>
           {problemOverview && <p className='mb-4'>{problemOverview}</p>}
@@ -125,7 +125,7 @@ export default function ProjectDetail({
           initial='hidden'
           animate={inView ? 'visible' : 'hidden'}
           variants={fadeIn}
-          className='bg-bright-yellow text-black rounded-3xl p-8 flex flex-col h-full w-full'
+          className='bg-bright-yellow text-background rounded-3xl p-8 flex flex-col h-full w-full'
         >
           <h2 className='text-2xl font-bold mb-2'>{solutionTitle}</h2>
           {solutionOverview && <p className='mb-4'>{solutionOverview}</p>}

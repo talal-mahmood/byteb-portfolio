@@ -19,7 +19,7 @@ export function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className='relative bg-background text-foreground flex flex-wrap items-center p-20 mt-[128px]'
+      className='relative bg-background text-foreground flex flex-wrap items-center p-20 mt-[64px]'
     >
       {/* subtle gradient/background accent */}
       {/* <div className='absolute inset-0 bg-gradient-to-b from-[#000001] via-[#0a0a0a] to-[#000001]/80 pointer-events-none' /> */}
@@ -39,7 +39,7 @@ export function HeroSection() {
           initial='hidden'
           animate={inView ? 'visible' : 'hidden'}
           variants={fadeIn}
-          className='mb-4 text-md sm:text-lg font-semibold bg-[#fffffe] text-[#000001] rounded-full py-1 px-2 w-max'
+          className='mb-4 text-md sm:text-lg font-semibold bg-foreground text-background rounded-full py-1 px-2 w-max'
         >
           AI. Made Ethical. Designed Beautifully. Delivered Smartly.
         </motion.p>
@@ -64,7 +64,7 @@ export function HeroSection() {
             href='https://calendly.com/muhammad-inam-f0mv/30min?month=2025-05'
             whileHover={{ scale: 0.98 }}
             whileTap={{ scale: 0.95 }}
-            className='inline-flex items-center gap-2 bg-[#eaf337] text-black font-medium rounded-lg px-6 py-3'
+            className='inline-flex items-center gap-2 bg-bright-yellow text-background font-medium rounded-lg px-6 py-3'
           >
             Schedule a Call
           </motion.a>
