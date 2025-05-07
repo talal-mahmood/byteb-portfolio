@@ -6,17 +6,13 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useLenis } from 'lenis/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PanelBottomClose, PanelTopClose, X } from 'lucide-react';
+import { PanelBottomClose, PanelTopClose } from 'lucide-react';
 import { useLayoutEffect, useRef, useState } from 'react';
 
 // Register ScrollToPlugin
 gsap.registerPlugin(ScrollToPlugin);
 
-interface HeaderProps {
-  isHomepage: boolean;
-}
-
-const Header: React.FC<HeaderProps> = ({ isHomepage }) => {
+const Header: React.FC = () => {
   const lenis = useLenis();
   const drawerRef = useRef<HTMLDivElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -191,7 +187,7 @@ const Header: React.FC<HeaderProps> = ({ isHomepage }) => {
             className='bg-foreground text-background px-5 py-3 mx-1 my-1 font-bold rounded-full hover:bg-white/90 text-nowrap'
             target='_blank'
           >
-            Let's Talk
+            Let&apos;s Talk
           </a>
         </div>
       </div>

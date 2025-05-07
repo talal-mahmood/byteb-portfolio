@@ -2,7 +2,7 @@
 
 import gsap from 'gsap';
 import { ReactLenis } from 'lenis/react';
-import { Children, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 function SmoothScroll({ children }: any) {
   const lenisRef = useRef<any>(null);

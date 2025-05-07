@@ -2,7 +2,6 @@
 
 import { useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Link2 } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -28,10 +27,10 @@ interface ProjectDetailProps {
 }
 
 export default function ProjectDetail({
-  id,
+  // id,
   title,
   subTitle,
-  overview,
+  // overview,
   url,
   problemTitle = 'Problem',
   problemOverview,
@@ -42,7 +41,7 @@ export default function ProjectDetail({
   problemImage,
   solutionImage,
   videoUrl,
-  videoTitle,
+  // videoTitle,
   videoOverview,
 }: ProjectDetailProps) {
   const sectionRef = useRef<HTMLDivElement>(null);

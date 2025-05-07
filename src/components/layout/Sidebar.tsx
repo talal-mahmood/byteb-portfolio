@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { AlignJustify, LogOut, Settings } from 'lucide-react';
+import { AlignJustify, LogOut } from 'lucide-react';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);

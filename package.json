@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pm2:deploy": "npm run build && PORT=3002 pm2 start npm --name 'byteb-portfolio' -- start",
+    "pm2:redeploy": "npm run build && pm2 stop byteb-portfolio && pm2 delete byteb-portfolio && PORT=3002 pm2 start npm --name 'byteb-portfolio' -- start"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

@@ -2,7 +2,7 @@
 
 import { PROJECT_DATA } from '@/constants/projects';
 import { HeroSection } from '@/components/main/HeroSection';
-import ProjectDetail from '@/components/projects/ProjectDetail';
+import ProjectDetail from '@/components/main/ProjectDetail';
 // import { ProjectsSection } from '@/components/main/ProjectsSection';
 
 const Home = () => {
