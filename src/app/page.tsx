@@ -12,7 +12,7 @@ const Home = () => {
       {/* <ProjectsSection /> */}
 
       {PROJECT_DATA.map((entry) => (
-        <>
+        <div key={entry.id}>
           <ProjectDetail
             id={entry.id}
             title={entry.title}
@@ -65,7 +65,7 @@ const Home = () => {
               title='Embedded youtube'
             />
           </div>
-        </>
+        </div>
       ))}
     </>
   );

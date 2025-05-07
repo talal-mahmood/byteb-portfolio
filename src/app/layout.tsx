@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Layout from '@/components/Layout';
-import { ReactLenis } from '@/utils/lenis';
+import SmoothScroll from '@/components/SmoothScroll';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -32,13 +32,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <ReactLenis root>
+      <SmoothScroll>
         <body
           className={`${plusJakartaSans.variable} {geistSans.variable} {geistMono.variable} antialiased`}
         >
           <Layout showSidebar={false}>{children}</Layout>
         </body>
-      </ReactLenis>
+      </SmoothScroll>
     </html>
   );
 }
