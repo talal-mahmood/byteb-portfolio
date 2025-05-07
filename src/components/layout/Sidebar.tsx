@@ -12,7 +12,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`bg-white text-black top-0 bottom-0 transition-all duration-300 ${
+      className={`bg-foreground text-background top-0 bottom-0 transition-all duration-300 ${
         !isOpen ? 'w-[64px]' : 'w-64'
       } absolute`}
     >
@@ -28,10 +28,10 @@ const Sidebar = () => {
           {isOpen && (
             <div className='flex flex-col gap-2 text-xl pt-4 '>
               {/* <h1 className='text-xl'>Contents</h1> */}
-              <a href='/voting' className='!text-black'>
+              <a href='/voting' className='!text-background'>
                 Voting
               </a>
-              <a href='/result' className='!text-black'>
+              <a href='/result' className='!text-background'>
                 Result
               </a>
             </div>
