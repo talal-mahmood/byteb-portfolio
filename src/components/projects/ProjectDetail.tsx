@@ -48,15 +48,20 @@ export default function ProjectDetail({
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const problemSolutionRef = useRef<HTMLDivElement>(null);
+  const headerVisualRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
       const contentHeight = problemSolutionRef.current?.offsetHeight || 0;
+      const imageHeight = headerVisualRef.current?.offsetHeight || 0;
 
       // Set up initial states
-      gsap.set(contentRef.current, { y: 0 });
+      gsap.set(contentRef.current, {
+        y: 0,
+        maxHeight: '50dvh',
+      });
       gsap.set(['#problem-section', '#solution-section', '#video-section'], {
         opacity: 0,
         y: 50,
@@ -75,52 +80,40 @@ export default function ProjectDetail({
         },
       });
 
-      // Animate content sections
-      tl.fromTo('#project-content', { y: 100 }, { y: 0, duration: 0.8 })
-        .to(
-          '#problem-section',
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-          },
-          '-=0.3'
-        )
-        .to(
-          '#solution-section',
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-          },
-          '-=0.4'
-        )
+      // Animate header visual
+      tl.to(
+        headerVisualRef.current,
+        {
+          opacity: 0,
+          y: -50,
+          duration: 0.8,
+        },
+        '+=0.2'
+      );
+
+      // Existing content animations
+      tl.fromTo(
+        '#project-content',
+        { y: 100 },
+        {
+          y: -imageHeight,
+          height: `calc(100%-${imageHeight}px)`,
+          duration: 0.8,
+        }
+      )
+        .to('#problem-section', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
+        .to('#solution-section', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
         .fromTo(
           '#project-content',
-          { y: 0 },
+          { y: -imageHeight },
           {
-            y: -contentHeight,
-            height: `calc(100%-${contentHeight}px`,
+            y: -contentHeight - imageHeight,
+            height: `calc(100%-${imageHeight - contentHeight}px)`,
             duration: 0.8,
           }
         )
-        .to(
-          '#project-solution',
-          {
-            opacity: 0,
-            duration: 0.6,
-          },
-          '-=0.8'
-        )
-        .to(
-          '#video-section',
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-          },
-          '-=0.4'
-        );
+        .to('#project-solution', { opacity: 0, duration: 0.6 }, '-=0.8')
+        .to('#video-section', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
     },
     { scope: sectionRef }
   );
@@ -134,7 +127,6 @@ export default function ProjectDetail({
       <div className='max-w-4xl mx-auto space-y-4 text-center'>
         <h1 className='text-4xl md:text-5xl font-bold'>{title}</h1>
         <p className='text-zinc-400 text-lg md:text-xl'>{subTitle}</p>
-
         <div className='flex gap-2 items-center justify-center mb-5'>
           {url && (
             <a
@@ -147,6 +139,18 @@ export default function ProjectDetail({
               Visit Project
             </a>
           )}
+        </div>
+        <div
+          ref={headerVisualRef}
+          className='w-full h-[60dvh] bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl mb-8'
+        >
+          {/* Replace with your actual visual content */}
+          <Image
+            src='/projects/tutor.jpg'
+            alt='Header visual'
+            fill
+            className='object-cover rounded-2xl'
+          />
         </div>
       </div>
       {/* Scrollable Content */}
