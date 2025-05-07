@@ -19,7 +19,7 @@ export function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className='relative bg-background text-foreground flex flex-wrap items-center p-20 mt-[64px]'
+      className='relative bg-background text-foreground flex flex-wrap items-center p-20 mt-[72px]'
     >
       {/* subtle gradient/background accent */}
       {/* <div className='absolute inset-0 bg-gradient-to-b from-[#000001] via-[#0a0a0a] to-[#000001]/80 pointer-events-none' /> */}

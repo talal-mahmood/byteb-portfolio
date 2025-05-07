@@ -18,7 +18,19 @@ function SmoothScroll({ children }: any) {
   }, []);
 
   return (
-    <ReactLenis options={{ autoRaf: false }} ref={lenisRef} root>
+    <ReactLenis
+      options={{
+        autoRaf: false,
+        duration: 0.1,
+        lerp: 0.1,
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        touchMultiplier: 1,
+      }}
+      ref={lenisRef}
+      root
+    >
       {children}
     </ReactLenis>
   );

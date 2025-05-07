@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import gsap from 'gsap';
 
 const Header = () => {
   return (
-    <div className='flex items-center justify-between gap-4 {bg-transparent} w-full h-[64px] px-20 fixed top-0 left-0 right-0 z-10 bg-background'>
+    <div className='flex items-center justify-between gap-4 {bg-transparent} w-full h-[72px] py-1 px-20 fixed top-0 left-0 right-0 z-10 bg-background'>
       {/* {showModal && (
         <Modal
           title='Logout'

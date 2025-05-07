@@ -43,7 +43,7 @@ export function HeroSection() {
         .fromTo(
           '#tagline',
           {
-            maxWidth: '200%',
+            maxWidth: '196%',
             display: 'flex',
             alignItems: 'center',
             fontSize: '48px',
