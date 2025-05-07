@@ -13,48 +13,69 @@ export function HeroSection() {
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      gsap
-        .timeline()
-        .from('#tagline', {
-          y: -100,
-          opacity: 0,
-          delay: 0.5,
-          duration: 0.75,
-        })
-        .from('#tagline .part', {
-          x: 1000,
-          opacity: 0,
-          stagger: 0.25,
-        });
-      // First flow (tagline with continuous scroll-linked animations)
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top 0px',
-            // Better approach: Use relative viewport units
-            end: 'bottom top', // Ends when bottom of element reaches top of viewport
-            scrub: 0.5, // Smoother follow-through
-            pin: true,
-            markers: true, // Uncomment to visualize trigger points
-          },
-        })
+      // 1. Create matchMedia (no generics needed if you only read these two flags)
+      const mm = gsap.matchMedia();
 
-        .fromTo(
-          '#tagline',
-          {
-            maxWidth: '196%',
-            display: 'flex',
-            alignItems: 'center',
-            fontSize: '48px',
-            fontWeight: 'bold',
-          },
-          { display: 'block', fontSize: '16px', fontWeight: 'semibold' }
-        )
-        .from('#right-text', { y: 100, opacity: 0 })
-        .from('#main-heading', { y: 100, opacity: 0 })
-        .from('#description', { y: 50, opacity: 0 })
-        .from('#button-container', { y: 30, opacity: 0 });
+      mm.add(
+        {
+          // desktop ≥1024px, mobile <1024px
+          isDesktop: '(min-width: 1024px)',
+          isMobile: '(max-width: 1023px)',
+        },
+        (context: gsap.Context) => {
+          const { isDesktop, isMobile } = context.conditions!;
+
+          // your intro tween
+          gsap
+            .timeline()
+            .from('#tagline', {
+              y: -100,
+              opacity: 0,
+              delay: 0.5,
+              duration: 0.75,
+            })
+            .from('#tagline .part', {
+              x: 1000,
+              opacity: 0,
+              stagger: 0.25,
+            });
+
+          // the scroll-linked timeline, with responsive start
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: heroRef.current,
+                start: isDesktop ? 'top 0px' : 'top 72px',
+                end: 'bottom -150%',
+                scrub: 0.5,
+                pin: true,
+                // markers: true,
+              },
+            })
+            .fromTo(
+              '#tagline',
+              {
+                maxWidth: '196%',
+                display: 'flex',
+                alignItems: 'center',
+                fontSize: '3dvw',
+                fontWeight: 'bold',
+              },
+              {
+                display: 'block',
+                fontSize: '16px',
+                fontWeight: 'semibold',
+              }
+            )
+            .from('#right-text', { y: 100, opacity: 0 })
+            .from('#main-heading', { y: 100, opacity: 0 })
+            .from('#description', { y: 50, opacity: 0 })
+            .from('#button-container', { y: 30, opacity: 0 });
+        }
+      );
+
+      // cleanup on unmount
+      return () => mm.revert();
     },
     { scope: heroRef }
   );
@@ -62,9 +83,9 @@ export function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className='relative bg-background text-foreground flex flex-wrap items-center p-20 mt-[64px] overflow-x-hidden'
+      className='relative bg-background text-foreground flex flex-col lg:flex-row items-center p-2 px-2 md:px-10 xl:p-20 mt-[64px] min-h-max h-[calc(100dvh-64px)] overflow-hidden'
     >
-      <div className='relative max-w-1/2'>
+      <div className='relative lg:max-w-1/2'>
         <h1
           id='main-heading'
           className='font-bold text-4xl sm:text-5xl md:text-6xl leading-tight tracking-tight text-[#fffffe]'
@@ -108,7 +129,7 @@ export function HeroSection() {
           </a>
         </div>
       </div>
-      <div className='w-full max-w-1/2'>
+      <div className='w-full lg:max-w-1/2 max-lg:mt-20'>
         <h1
           id='right-text'
           ref={rightTextRef}

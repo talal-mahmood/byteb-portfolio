@@ -71,17 +71,17 @@ export default function ProjectDetail({
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top 36px',
-          end: 'bottom top',
+          start: 'top 31px',
+          end: 'bottom -1000px',
           scrub: 0.5,
           pin: true,
-          markers: true, // Remove in production
+          // markers: true, // Remove in production
           anticipatePin: 1,
         },
       });
 
       // Animate header visual
-      tl.to(
+      tl.to({}, { duration: 0.3 }).to(
         headerVisualRef.current,
         {
           opacity: 0,
@@ -103,13 +103,22 @@ export default function ProjectDetail({
       )
         .to('#problem-section', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
         .to('#solution-section', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
+        // ⏸ Hold here for another 30% of the scroll range
+        .to({}, { duration: 0.15 })
         .fromTo(
           '#project-content',
           { y: -imageHeight },
           {
             y: -contentHeight - imageHeight,
             height: `calc(100%-${imageHeight - contentHeight}px)`,
-            duration: 0.8,
+            duration: 1,
+          }
+        )
+        .fromTo(
+          '#project-solution',
+          { opacity: 1 },
+          {
+            opacity: 0,
           }
         )
         .to('#project-solution', { opacity: 0, duration: 0.6 }, '-=0.8')
@@ -121,24 +130,28 @@ export default function ProjectDetail({
   return (
     <section
       ref={sectionRef}
-      className='px-20 py-10 bg-background text-foreground relative overflow-hidden'
+      className='px-2 md:px-10 xl:px-20 py-10 {border-4} bg-background text-foreground relative overflow-hidden'
     >
       {/* Pinned Header Section */}
-      <div className='max-w-4xl mx-auto space-y-4 text-center'>
-        <h1 className='text-4xl md:text-5xl font-bold'>{title}</h1>
-        <p className='text-zinc-400 text-lg md:text-xl'>{subTitle}</p>
-        <div className='flex gap-2 items-center justify-center mb-5'>
-          {url && (
-            <a
-              href={url}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='bg-white/10 rounded-full py-2 px-4 font-semibold inline-flex gap-2 hover:opacity-90'
-            >
-              <Link2 />
-              Visit Project
-            </a>
-          )}
+      <div className='w-[calc(100%+1px)] text-center'>
+        <div className='bg-background z-10 relative w-full space-y-4'>
+          <h1 className='text-4xl md:3xl lg:4xl xl:text-5xl font-bold  '>
+            {title}
+          </h1>
+          <p className='text-zinc-400 text-lg md:text-xl'>{subTitle}</p>
+          <div className='flex gap-2 items-center justify-center pb-2'>
+            {url && (
+              <a
+                href={url}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='bg-white/10 rounded-full py-2 px-4 font-semibold inline-flex gap-2 hover:opacity-90'
+              >
+                <Link2 />
+                Visit Project
+              </a>
+            )}
+          </div>
         </div>
         <div
           ref={headerVisualRef}
@@ -229,7 +242,7 @@ export default function ProjectDetail({
         className='w-full max-w-4xl rounded-2xl shadow-2xl'
       /> */}
               <iframe
-                className='w-[calc(100%-200px)] h-[calc(100%-248px)] rounded-xl m-auto'
+                className='w-full h-[80dvh] rounded-xl m-auto'
                 src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
                 allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                 allowFullScreen
