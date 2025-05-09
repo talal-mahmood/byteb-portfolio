@@ -235,7 +235,7 @@ const Header = () => {
             target='_blank'
             rel='noopener noreferrer'
           >
-            Let's Talk
+            Let&apos;s Talk
             <ExternalLink className='w-4 h-4' />
           </a>
         </div>
@@ -250,7 +250,7 @@ const Header = () => {
             : 'bg-background py-4'
         }`}
       >
-        <div className='container mx-auto px-2 sm:px-4 lg:px-12 flex items-center justify-between'>
+        <div className='px-2 sm:px-4 lg:px-12 flex items-center justify-between'>
           {/* Logo */}
           <Link href='/' className='flex items-center'>
             <Image
@@ -258,7 +258,7 @@ const Header = () => {
               height={40}
               src='/logo-text.png'
               alt='bytebricks'
-              className='h-8 sm:h-10 w-auto'
+              className='h-8 sm:h-10 w-auto lg:h-auto lg:w-[14.27dvw]'
             />
           </Link>
 
@@ -273,7 +273,7 @@ const Header = () => {
                   key={hash}
                   href={hash}
                   onClick={(e) => handleClick(e, hash)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white/80`}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white/80 lg:text-[1.04dvw]`}
                 >
                   {label}
                 </Link>
@@ -295,7 +295,7 @@ const Header = () => {
               target='_blank'
               rel='noopener noreferrer'
             >
-              Let's Talk
+              Let&apos;s Talk
             </a>
 
             <button

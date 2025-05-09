@@ -19,11 +19,12 @@ export function HeroSection() {
       mm.add(
         {
           // desktop ≥1024px, mobile <1024px
+          isXl: 'min-width: 1280',
           isDesktop: '(min-width: 1024px)',
           isMobile: '(max-width: 500px)',
         },
         (context: gsap.Context) => {
-          const { isDesktop, isMobile } = context.conditions!;
+          const { isXl, isDesktop, isMobile } = context.conditions!;
 
           // your intro tween
           gsap
@@ -63,7 +64,7 @@ export function HeroSection() {
               },
               {
                 display: 'block',
-                fontSize: isMobile ? '3dvw' : '16px',
+                fontSize: isMobile ? '3dvw' : '1.35dvw',
                 fontWeight: 'semibold',
               }
             )
@@ -84,15 +85,15 @@ export function HeroSection() {
     <section
       ref={heroRef}
       id='hero-section'
-      className='relative bg-background text-foreground flex flex-col lg:flex-row items-center p-2 px-2 md:px-10 xl:p-20 mt-[64px] min-h-max h-[calc(100dvh-64px)] overflow-hidden'
+      className='relative bg-background text-foreground flex flex-col lg:flex-row items-center p-2 md:px-10 xl:p-20 mt-[64px] min-h-max h-[calc(100dvh-64px)] overflow-hidden gap-x-4'
     >
       <div className='relative w-full lg:max-w-1/2'>
         <h1
           id='main-heading'
-          className='font-bold text-4xl sm:text-5xl md:text-6xl leading-tight tracking-tight text-[#fffffe]'
+          className='mb-4 font-bold text-4xl sm:text-5xl md:text-6xl leading-tight tracking-tight text-[#fffffe] lg:text-[4dvw]'
         >
           We Build Intuitive, Secure AI Solutions{' '}
-          <br className='block sm:hidden' />
+          <br className='block {sm:hidden}' />
           for Ambitious Teams.
         </h1>
         <p
@@ -114,7 +115,7 @@ export function HeroSection() {
         </p>
         <p
           id='description'
-          className='mt-6 text-lg sm:text-xl font-light text-[#BEA6B0]'
+          className='mt-6 text-lg sm:text-xl font-light text-[#BEA6B0] lg:text-[1.39dvw]'
         >
           From chatbots to automation and on-premise models, we craft AI that
           fits your business, protects your data, and accelerates your
@@ -124,7 +125,7 @@ export function HeroSection() {
         <div id='button-container' className='mt-8 gap-4'>
           <a
             href='https://calendly.com/muhammad-inam-f0mv/30min?month=2025-05'
-            className='inline-flex items-center gap-2 bg-bright-yellow text-background font-medium rounded-lg px-6 py-3 hover:scale-[0.98] active:scale-[0.95] transition-transform duration-200 ease-in-out'
+            className='inline-flex items-center gap-2 bg-bright-yellow text-background font-medium rounded-lg px-6 py-3 hover:scale-[0.98] active:scale-[0.95] transition-transform duration-200 ease-in-out lg:text-[1.11dvw]'
           >
             Schedule a Call
           </a>
@@ -134,7 +135,7 @@ export function HeroSection() {
         <h1
           id='right-text'
           ref={rightTextRef}
-          className='font-semibold text-xl sm:text-2xl md:text-3xl leading-tight tracking-tight bg-white/10 p-10 rounded-4xl'
+          className='font-semibold text-xl sm:text-2xl md:text-3xl leading-tight tracking-tight bg-white/10 p-10 rounded-4xl lg:text-[2.08dvw]'
         >
           Our product development offers maximum value at minimum cost! We serve
           with our heart: Averaging a perfect satisfaction score as we not only

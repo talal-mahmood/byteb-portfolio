@@ -6,6 +6,7 @@ import { Link2 } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import MarkdownText from '../MarkdownText';
 
 interface ProjectDetailProps {
   id?: string;
@@ -72,30 +73,41 @@ export default function ProjectDetail({
         },
       });
 
-      gsap.utils
+      // Scroll snapping for sections
+      const sections = gsap.utils
         .toArray(['#problem-section', '#solution-section', '#video-section'])
-        .forEach((section: any) => {
-          gsap.from(section, {
-            opacity: 0,
-            y: 50,
-            scrollTrigger: {
-              trigger: section,
-              start: 'top center+=100',
-              end: 'bottom center',
-              toggleActions: 'play none none reverse',
-            },
-          });
-        });
+        .filter((section: any) => section) as HTMLElement[];
 
-      gsap.from('#header-visual', {
-        scale: 1.1,
-        scrollTrigger: {
-          trigger: '#header-visual',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
+      if (sections.length > 0) {
+        ScrollTrigger.create({
+          trigger: contentRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          snap: {
+            snapTo: (progress, self) => {
+              let st = self?.scroll();
+              return gsap.utils.snap(
+                sections.map((s) => ScrollTrigger.positionInDir(s, 'top')),
+                st
+              );
+            },
+            duration: { min: 0.4, max: 0.8 },
+            ease: 'power3.out',
+            inertia: false,
+          },
+          markers: false,
+        });
+      }
+
+      // gsap.from('#header-visual', {
+      //   scale: 1.1,
+      //   scrollTrigger: {
+      //     trigger: '#header-visual',
+      //     start: 'top bottom',
+      //     end: 'bottom top',
+      //     scrub: true,
+      //   },
+      // });
     },
     { scope: sectionRef }
   );
@@ -108,13 +120,15 @@ export default function ProjectDetail({
       {/* Left Pinned Sidebar */}
       <div
         ref={sidebarRef}
-        className='sticky top-[63px] lg:top-[10dvh] w-full lg:w-[40%] xl:w-[35%] px-2 md:px-10 xl:px-20 py-3 lg:py-20 bg-background/90 backdrop-blur-md lg:bg-transparent z-10 h-max'
+        className='sticky top-[63px] w-full lg:w-[40%] xl:w-[35%] px-2 md:px-10 xl:px-20 bg-background/90 {backdrop-blur-md} lg:bg-transparent z-10 h-max'
       >
-        <div className='lg:max-w-xl space-y-2 lg:space-y-8 max-lg:flex flex-col items-center text-center h-max'>
-          <h1 className='text-2xl md:text-4xl xl:text-5xl font-bold'>
-            {title}
+        <div className='lg:max-w-xl space-y-2 lg:space-y-8 flex flex-col items-center justify-center text-center h-[calc(100dvh-64px)]'>
+          <h1 className='text-2xl md:text-4xl {xl:text-5xl} font-semibold lg:text-[3.5dvw]'>
+            <MarkdownText>{title}</MarkdownText>
           </h1>
-          <p className='text-zinc-400 sm:text-xl'>{subTitle}</p>
+          <p className='text-zinc-400 sm:text-xl lg:text-[2dvw]'>
+            <MarkdownText>{subTitle}</MarkdownText>
+          </p>
 
           {url && (
             <a
@@ -138,13 +152,14 @@ export default function ProjectDetail({
         {/* Header Visual moved into content */}
         <div
           id='header-visual'
-          className='relative w-full aspect-square rounded-2xl overflow-hidden mt-8'
+          className='relative w-full aspect-video rounded-2xl overflow-hidden mt-8'
         >
           <Image
             src='/projects/tutor.jpg'
             alt='Header visual'
-            fill
-            className='object-cover'
+            width={1000}
+            height={1000}
+            className='w-full'
           />
         </div>
 
@@ -153,12 +168,18 @@ export default function ProjectDetail({
           id='problem-section'
           className='bg-foreground text-background rounded-3xl p-8 space-y-6'
         >
-          <h2 className='text-3xl font-bold'>{problemTitle}</h2>
-          {problemOverview && <p className='text-lg'>{problemOverview}</p>}
+          <h2 className='text-3xl lg:text-[2dvw] font-bold'>
+            <MarkdownText>{problemTitle}</MarkdownText>
+          </h2>
+          {problemOverview && (
+            <p className='text-lg lg:text-[1.2dvw]'>
+              <MarkdownText>{problemOverview}</MarkdownText>
+            </p>
+          )}
           <ul className='space-y-4 pl-6 list-disc'>
             {problems.map((item, idx) => (
-              <li key={idx} className='text-lg'>
-                {item}
+              <li key={idx} className='text-lg lg:text-[1.175dvw]'>
+                <MarkdownText>{item}</MarkdownText>
               </li>
             ))}
           </ul>
@@ -179,12 +200,18 @@ export default function ProjectDetail({
           id='solution-section'
           className='bg-bright-yellow text-background rounded-3xl p-8 space-y-6'
         >
-          <h2 className='text-3xl font-bold'>{solutionTitle}</h2>
-          {solutionOverview && <p className='text-lg'>{solutionOverview}</p>}
+          <h2 className='text-3xl font-bold lg:text-[2dvw]'>
+            <MarkdownText>{solutionTitle}</MarkdownText>
+          </h2>
+          {solutionOverview && (
+            <p className='text-lg lg:text-[1.2dvw]'>
+              <MarkdownText>{solutionOverview}</MarkdownText>
+            </p>
+          )}
           <ul className='space-y-4 pl-6 list-disc'>
             {solutions.map((item, idx) => (
-              <li key={idx} className='text-lg'>
-                {item}
+              <li key={idx} className='text-lg lg:text-[1.175dvw]'>
+                <MarkdownText>{item}</MarkdownText>
               </li>
             ))}
           </ul>
@@ -205,7 +232,9 @@ export default function ProjectDetail({
           <div id='video-section' className='space-y-8'>
             <div className='text-center max-w-3xl mx-auto'>
               {videoOverview && (
-                <p className='text-xl text-zinc-400'>{videoOverview}</p>
+                <p className='text-xl text-zinc-400'>
+                  <MarkdownText>{videoOverview}</MarkdownText>
+                </p>
               )}
             </div>
             <div className='aspect-video rounded-2xl overflow-hidden'>

@@ -18,7 +18,7 @@ const Layout = ({
   showFooter = true,
 }: LayoutProps) => {
   return (
-    <div className='w-[100dvw] h-[100dvh] m-auto'>
+    <div className='w-[100dvw] h-[100dvh]'>
       {showHeader && <Header />}
       <div className={`bg-background h-full flex relative`}>
         {showSidebar && <Sidebar />}
