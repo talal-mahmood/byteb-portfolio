@@ -1,196 +1,321 @@
 'use client';
 
 import type React from 'react';
+
+import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from 'lenis/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PanelBottomClose, PanelTopClose } from 'lucide-react';
-import { useLayoutEffect, useRef, useState } from 'react';
+import { Menu, X, ExternalLink } from 'lucide-react';
+import { useGSAP } from '@gsap/react';
 
 // Register ScrollToPlugin
-gsap.registerPlugin(ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
-const Header: React.FC = () => {
+// Navigation items
+const NAV_ITEMS = [
+  // { label: '', hash: '#hero-section' },
+  { label: 'Self Learning Tool', hash: '#self-learning-tool' },
+  { label: 'Legal Analysis Agent', hash: '#legal-analysis-agent' },
+  { label: 'Agent Builder', hash: '#agent-builder' },
+  { label: 'Lead Intelligence', hash: '#lead-intelligence' },
+  { label: 'Smart PLAB Assistant', hash: '#smart-plab-assistant' },
+];
+
+const Header = () => {
   const lenis = useLenis();
   const drawerRef = useRef<HTMLDivElement>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
+  const underlineRef = useRef<HTMLSpanElement>(null);
+  const mobileNavRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const sections = useRef<HTMLElement[]>([]);
 
-  // ensure the drawer is hidden/offscreen on first render
-  useLayoutEffect(() => {
-    const el = drawerRef.current;
-    if (el) {
-      gsap.set(el, {
-        y: '-100%',
-        autoAlpha: 0,
-        display: 'none',
-      });
-    }
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  // const [isInitialized, setIsInitialized] = useState(false);
+  const [activeHash, setActiveHash] = useState('');
+
+  // // Initialize drawer position
+  // useEffect(() => {
+  //   if (drawerRef.current) {
+  //     gsap.set(drawerRef.current, {
+  //       x: '100%',
+  //       autoAlpha: 0,
+  //       display: 'none',
+  //     });
+  //   }
+
+  //   setIsInitialized(true);
+  // }, []);
+
+  // Handle scroll events to change header appearance
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setScrolled(scrollPosition > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  function openDrawer() {
+  useGSAP(
+    () => {
+      if (!navRef.current || !underlineRef.current) return;
+
+      // Collect section elements
+      sections.current = NAV_ITEMS.map(
+        ({ hash }) => document.querySelector(hash) as HTMLElement
+      ).filter(Boolean);
+
+      const links = Array.from(
+        navRef.current.querySelectorAll('a')
+      ) as HTMLElement[];
+
+      // Mobile: update activeHash on scroll
+      sections.current.forEach((section, i) => {
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'bottom top+=100%',
+          end: 'top 100%',
+          onEnter: () => setActiveHash(NAV_ITEMS[i].hash),
+          onEnterBack: () => setActiveHash(NAV_ITEMS[i].hash),
+        });
+      });
+
+      // Desktop: underline animation
+      const moveUnderline = (el: HTMLElement) => {
+        gsap.to(underlineRef.current, {
+          x: el.offsetLeft,
+          width: el.offsetWidth,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+      };
+
+      // Initial underline
+      if (links[0]) {
+        gsap.set(underlineRef.current, {
+          x: links[0].offsetLeft,
+          width: links[0].offsetWidth,
+        });
+      }
+
+      ScrollTrigger.batch(sections.current, {
+        onEnter: (batch) => {
+          const index = sections.current.indexOf(batch[0] as HTMLElement);
+          moveUnderline(links[index]);
+        },
+        onEnterBack: (batch) => {
+          const index = sections.current.indexOf(batch[0] as HTMLElement);
+          moveUnderline(links[index]);
+        },
+        start: 'bottom top+=100%',
+        end: 'top 100%',
+        once: false,
+      });
+    },
+    { scope: headerRef }
+  );
+
+  // Handle drawer open/close
+  function toggleDrawer() {
     if (!drawerRef.current) return;
 
-    gsap.set(drawerRef.current, { y: '-100%', autoAlpha: 1, display: 'block' });
-    gsap.to(drawerRef.current, {
-      y: 0,
-      duration: 0.5,
-      ease: 'power3.out',
-    });
-
-    setDrawerOpen(true);
-  }
-
-  function closeDrawer() {
-    if (!drawerRef.current) return;
-
-    gsap.to(drawerRef.current, {
-      y: '-100%',
-      duration: 0.5,
-      ease: 'power3.in',
-      onComplete: () => {
-        gsap.set(drawerRef.current, { autoAlpha: 0, display: 'none' });
-      },
-    });
-
-    setDrawerOpen(false);
-  }
-
-  function handleClick(e: React.MouseEvent, hash: string) {
-    e.preventDefault();
-
-    // Get the target element
-    const targetElement = document.querySelector(hash);
-
-    if (targetElement) {
-      // Fixed header offset
-      const headerOffset = 72;
-
-      // Use GSAP to create a smoother animation effect
-      gsap.to(window, {
-        duration: 1.2, // Longer duration for smoother effect
-        scrollTo: {
-          y: targetElement,
-          offsetY: headerOffset,
-          autoKill: false,
-        },
-        ease: 'power3.out', // Smoother easing function
-        onStart: () => {
-          // Disable Lenis temporarily during GSAP animation
-          lenis?.stop();
-        },
+    if (!drawerOpen) {
+      // Open drawer
+      gsap.set(drawerRef.current, { x: '100%', autoAlpha: 1, display: 'flex' });
+      gsap.to(drawerRef.current, {
+        x: '0%',
+        duration: 0.4,
+        ease: 'power3.out',
+      });
+      // Prevent body scrolling
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Close drawer
+      gsap.to(drawerRef.current, {
+        x: '100%',
+        duration: 0.4,
+        ease: 'power3.in',
         onComplete: () => {
-          // Update URL hash without triggering a scroll
-          window.history.pushState(null, '', hash);
-          // Re-enable Lenis after animation completes
-          lenis?.start();
+          gsap.set(drawerRef.current, { autoAlpha: 0, display: 'none' });
         },
       });
+      // Restore body scrolling
+      document.body.style.overflow = '';
     }
+
+    setDrawerOpen(!drawerOpen);
+  }
+
+  // Smooth scroll to section using Lenis
+  function handleClick(e: React.MouseEvent, hash: string) {
+    e.preventDefault();
+    const target = document.querySelector(hash);
+    if (!target) return;
+
+    // Calculate final scroll position (minus your header height)
+    const headerOffset = 80;
+    const top =
+      (target as HTMLElement).getBoundingClientRect().top +
+      window.scrollY -
+      headerOffset;
+
+    // Let Lenis do the smooth scrolling
+    lenis?.scrollTo(top, {
+      duration: 1,
+      easing: (t) => t, // linear timing; tweak to taste
+    });
+
+    // Update URL & close drawer immediately
+    window.history.pushState(null, '', hash);
+    if (drawerOpen) toggleDrawer();
   }
 
   return (
     <>
+      {/* Mobile Navigation Drawer */}
       <div
         ref={drawerRef}
-        className='fixed bottom-0 left-0 right-0 h-[calc(100%-64px)] bg-background z-50 block xl:hidden'
+        className='fixed top-0 right-0 bottom-0 w-[80%] max-w-[400px] bg-background/95 backdrop-blur-md z-50 flex flex-col shadow-2xl'
         style={{ display: 'none' }}
       >
-        {/* <X
-          className='w-[12dvh] h-[12dvh] cursor-pointer'
-          onClick={closeDrawer}
-        /> */}
-        <div className='w-full h-full flex flex-col items-center justify-center gap-[5dvh] text-[4dvw]'>
-          {[
-            ['Self Learning tool', '#self-learning-tool'],
-            ['Legal Analysis Agent', '#legal-analysis-agent'],
-            ['Agent builder', '#agent-builder'],
-            ['Lead Intelligence', '#lead-intelligence'],
-            ['Smart PLAB assistant', '#smart-plab-assistant'],
-          ].map(([label, hash]) => (
-            <Link
-              key={hash}
-              href={hash}
-              onClick={(e) => {
-                handleClick(e, hash);
-                closeDrawer();
-              }}
-              className='px-5 py-3 {rounded-full} {hover:bg-white/90} hover:text-white/80'
-            >
-              {label}
-            </Link>
-          ))}
+        <div className='flex justify-between items-center p-6 border-b border-border/20'>
+          <Image
+            width={120}
+            height={40}
+            src='/logo-text.png'
+            alt='bytebricks'
+            className='h-10 w-auto'
+          />
+          <button
+            onClick={toggleDrawer}
+            className='p-2 rounded-full hover:bg-foreground/10 transition-colors'
+            aria-label='Close menu'
+          >
+            <X className='w-6 h-6' />
+          </button>
         </div>
-      </div>
-      <div className='flex items-center justify-between gap-4 {bg-transparent} w-full h-[72px] py-1 px-2 md:px-10 xl:px-20  fixed top-0 left-0 right-0 z-10 bg-background'>
-        {/* {showModal && (
-        <Modal
-          title='Logout'
-          description='Are you sure you want to logout?'
-          onClose={() => setShowModal(false)}
-          onConfirm={() => {
-            localStorage.removeItem('token');
-            setShowModal(false);
-            navigate('/login');
-          }}
-        />
-      )} */}
-        {/* <Link
-        // href='https://byteb.io/'
-        href='/'
-        className='p-4 {backdrop-blur-md} {bg-white/15} rounded-4xl h-max'
-      >
-        <BytebricksLogo />
-      </Link> */}
-        <Image
-          width={1000}
-          height={1000}
-          src='/logo.png'
-          alt='bytebricks'
-          className='h-full w-min'
-        />
-        <nav className='rounded-full max-w-full h-full w-max p-1 flex items-center justify-between {backdrop-blur-md} {bg-white/15}'>
-          {drawerOpen ? (
-            <button className='xl:hidden cursor-pointer' onClick={closeDrawer}>
-              <PanelTopClose className='w-[3dvw] h-[3dvw]' />
-            </button>
-          ) : (
-            <button className='xl:hidden cursor-pointer' onClick={openDrawer}>
-              <PanelBottomClose className='w-[3dvw] h-[3dvw]' />
-            </button>
-          )}
-          <div className='flex items-center gap-2 max-xl:hidden'>
-            {/* <h1 className='text-xl'>Contents</h1> */}
-            {[
-              ['Self Learning tool', '#self-learning-tool'],
-              ['Legal Analysis Agent', '#legal-analysis-agent'],
-              ['Agent builder', '#agent-builder'],
-              ['Lead Intelligence', '#lead-intelligence'],
-              ['Smart PLAB assistant', '#smart-plab-assistant'],
-            ].map(([label, hash]) => (
+
+        <div className='flex-1 overflow-auto py-6'>
+          <nav className='flex flex-col space-y-1 px-4'>
+            {NAV_ITEMS.map(({ label, hash }, index) => (
               <Link
                 key={hash}
                 href={hash}
+                ref={(el) => {
+                  mobileNavRefs.current[index] = el;
+                }}
                 onClick={(e) => handleClick(e, hash)}
-                className='px-5 py-3 {rounded-full} {hover:bg-white/90} font-semibold hover:text-white/80'
+                className={`flex items-center justify-between p-4 rounded-lg transition-colors ${
+                  activeHash === hash
+                    ? 'bg-foreground/10 font-medium'
+                    : 'hover:bg-foreground/5'
+                }`}
               >
-                {label}
+                <span>{label}</span>
+                <div
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    activeHash === hash ? 'bg-bright-yellow' : 'bg-transparent'
+                  }`}
+                />
               </Link>
             ))}
-          </div>
-        </nav>
-        {/* CTA Button */}
-        <div className='flex items-center justify-center p-1 rounded-full {backdrop-blur-md} {bg-white/15}'>
+          </nav>
+        </div>
+
+        <div className='p-6 border-t border-border/20'>
           <a
             href='https://calendly.com/muhammad-inam-f0mv/30min'
-            className='bg-foreground text-background px-5 py-3 mx-1 my-1 font-bold rounded-full hover:bg-white/90 text-nowrap'
+            className='flex items-center justify-center gap-2 w-full bg-foreground text-background py-3 px-6 rounded-lg font-medium hover:bg-foreground/90 transition-colors'
             target='_blank'
+            rel='noopener noreferrer'
           >
-            Let&apos;s Talk
+            Let's Talk
+            <ExternalLink className='w-4 h-4' />
           </a>
         </div>
       </div>
+
+      {/* Header */}
+      <header
+        ref={headerRef}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+          scrolled
+            ? 'bg-background/90 backdrop-blur-md shadow-md py-3'
+            : 'bg-background py-4'
+        }`}
+      >
+        <div className='container mx-auto px-2 sm:px-4 lg:px-12 flex items-center justify-between'>
+          {/* Logo */}
+          <Link href='/' className='flex items-center'>
+            <Image
+              width={140}
+              height={40}
+              src='/logo-text.png'
+              alt='bytebricks'
+              className='h-8 sm:h-10 w-auto'
+            />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav
+            className='relative hidden lg:flex items-center space-x-1'
+            ref={navRef}
+          >
+            <div className='flex space-x-1'>
+              {NAV_ITEMS.map(({ label, hash }) => (
+                <Link
+                  key={hash}
+                  href={hash}
+                  onClick={(e) => handleClick(e, hash)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white/80`}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+
+            {/* ✅ Underline element */}
+            <span
+              ref={underlineRef}
+              className='absolute bottom-0 left-0 h-0.5 bg-bright-yellow hidden lg:block transition-all duration-300'
+            />
+          </nav>
+
+          {/* CTA Button and Mobile Menu */}
+          <div className='flex items-center sm:space-x-4'>
+            <a
+              href='https://calendly.com/muhammad-inam-f0mv/30min'
+              className='bg-foreground text-background px-5 py-2 rounded-lg text-sm font-medium hover:bg-foreground/90 transition-colors whitespace-nowrap'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              Let's Talk
+            </a>
+
+            <button
+              onClick={toggleDrawer}
+              className='lg:hidden p-2 rounded-lg hover:bg-foreground/10 transition-colors'
+              aria-label='Open menu'
+            >
+              <Menu className='w-6 h-6' />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Overlay for mobile drawer */}
+      {drawerOpen && (
+        <div
+          className='fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm'
+          onClick={toggleDrawer}
+        />
+      )}
     </>
   );
 };

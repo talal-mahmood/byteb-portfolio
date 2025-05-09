@@ -1,7 +1,7 @@
 export const PROJECT_DATA = [
   {
     id: 'self-learning-tool',
-    title: 'MYAi – Self Learning Platform',
+    title: 'Self Learning Platform',
     subTitle:
       'AI-powered, Socratic learning assistant for curriculum-driven self study',
     overview:
@@ -30,7 +30,7 @@ export const PROJECT_DATA = [
   },
   {
     id: 'legal-analysis-agent',
-    title: 'Caira – Legal Research & Analysis Assistant',
+    title: 'Legal Research & Analysis Assistant',
     subTitle:
       'A smart document-intelligence AI for fast, accurate contract review',
     overview:
@@ -59,7 +59,7 @@ export const PROJECT_DATA = [
   },
   {
     id: 'agent-builder',
-    title: 'Marti – Enterprise AI Q&A & Support Platform',
+    title: 'Enterprise AI Q&A & Support Platform',
     subTitle:
       'A cloud-native, multi-agent workflow engine for internal & customer support',
     overview:
@@ -89,7 +89,7 @@ export const PROJECT_DATA = [
   },
   {
     id: 'lead-intelligence',
-    title: 'Lean Architect – IBC Compliance AI Assistant',
+    title: 'IBC Compliance AI Assistant',
     subTitle:
       'Architect-focused AI that navigates International Building Code rules instantly',
     overview:

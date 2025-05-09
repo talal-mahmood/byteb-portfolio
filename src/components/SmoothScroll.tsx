@@ -31,8 +31,7 @@ function SmoothScroll({ children }: any) {
       // }}
       options={{
         autoRaf: false,
-        duration: 1.2,
-        lerp: 0.08,
+        duration: 2,
         smoothWheel: true,
         touchMultiplier: 2,
         wheelMultiplier: 1.2,

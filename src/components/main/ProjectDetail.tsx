@@ -27,10 +27,8 @@ interface ProjectDetailProps {
 }
 
 export default function ProjectDetail({
-  // id,
   title,
   subTitle,
-  // overview,
   url,
   problemTitle = 'Problem',
   problemOverview,
@@ -41,87 +39,63 @@ export default function ProjectDetail({
   problemImage,
   solutionImage,
   videoUrl,
-  // videoTitle,
   videoOverview,
 }: ProjectDetailProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const problemSolutionRef = useRef<HTMLDivElement>(null);
-  const headerVisualRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      const contentHeight = problemSolutionRef.current?.offsetHeight || 0;
-      const imageHeight = headerVisualRef.current?.offsetHeight || 0;
-
-      // Set up initial states
-      gsap.set(contentRef.current, {
-        y: 0,
-        maxHeight: '50dvh',
-      });
-      gsap.set(['#problem-section', '#solution-section', '#video-section'], {
-        opacity: 0,
-        y: 50,
-      });
-
-      // Create master timeline
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 31px',
-          end: 'bottom -1000px',
-          scrub: 0.5,
-          pin: true,
-          // markers: true, // Remove in production
-          anticipatePin: 1,
+      ScrollTrigger.matchMedia({
+        '(min-width: 1024px)': () => {
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            pin: sidebarRef.current,
+            pinSpacing: false,
+            anticipatePin: 1,
+          });
+        },
+        '(max-width: 1023px)': () => {
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            pin: sidebarRef.current,
+            pinSpacing: false,
+            anticipatePin: 1,
+          });
         },
       });
 
-      // Animate header visual
-      tl.to({}, { duration: 0.3 }).to(
-        headerVisualRef.current,
-        {
-          opacity: 0,
-          y: -50,
-          duration: 0.8,
-        },
-        '+=0.2'
-      );
-
-      // Existing content animations
-      tl.fromTo(
-        '#project-content',
-        { y: 100 },
-        {
-          y: -imageHeight,
-          height: `calc(100%-${imageHeight}px)`,
-          duration: 0.8,
-        }
-      )
-        .to('#problem-section', { opacity: 1, y: 0, duration: 0.6 }, '-=0.3')
-        .to('#solution-section', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4')
-        // ⏸ Hold here for another 30% of the scroll range
-        .to({}, { duration: 0.15 })
-        .fromTo(
-          '#project-content',
-          { y: -imageHeight },
-          {
-            y: -contentHeight - imageHeight,
-            height: `calc(100%-${imageHeight - contentHeight}px)`,
-            duration: 1,
-          }
-        )
-        .fromTo(
-          '#project-solution',
-          { opacity: 1 },
-          {
+      gsap.utils
+        .toArray(['#problem-section', '#solution-section', '#video-section'])
+        .forEach((section: any) => {
+          gsap.from(section, {
             opacity: 0,
-          }
-        )
-        .to('#project-solution', { opacity: 0, duration: 0.6 }, '-=0.8')
-        .to('#video-section', { opacity: 1, y: 0, duration: 0.6 }, '-=0.4');
+            y: 50,
+            scrollTrigger: {
+              trigger: section,
+              start: 'top center+=100',
+              end: 'bottom center',
+              toggleActions: 'play none none reverse',
+            },
+          });
+        });
+
+      gsap.from('#header-visual', {
+        scale: 1.1,
+        scrollTrigger: {
+          trigger: '#header-visual',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
     },
     { scope: sectionRef }
   );
@@ -129,123 +103,116 @@ export default function ProjectDetail({
   return (
     <section
       ref={sectionRef}
-      className='px-2 md:px-10 xl:px-20 py-10 {border-4} bg-background text-foreground relative overflow-hidden'
+      className='flex flex-col lg:flex-row min-h-screen bg-background text-foreground'
     >
-      {/* Pinned Header Section */}
-      <div className='w-[calc(100%+1px)] text-center'>
-        <div className='bg-background z-10 relative w-full space-y-4'>
-          <h1 className='text-4xl md:3xl lg:4xl xl:text-5xl font-bold  '>
+      {/* Left Pinned Sidebar */}
+      <div
+        ref={sidebarRef}
+        className='sticky top-[63px] lg:top-[10dvh] w-full lg:w-[40%] xl:w-[35%] px-2 md:px-10 xl:px-20 py-3 lg:py-20 bg-background/90 backdrop-blur-md lg:bg-transparent z-10 h-max'
+      >
+        <div className='lg:max-w-xl space-y-2 lg:space-y-8 max-lg:flex flex-col items-center text-center h-max'>
+          <h1 className='text-2xl md:text-4xl xl:text-5xl font-bold'>
             {title}
           </h1>
-          <p className='text-zinc-400 text-lg md:text-xl'>{subTitle}</p>
-          <div className='flex gap-2 items-center justify-center pb-2'>
-            {url && (
-              <a
-                href={url}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='bg-white/10 rounded-full py-2 px-4 font-semibold inline-flex gap-2 hover:opacity-90'
-              >
-                <Link2 />
-                Visit Project
-              </a>
-            )}
-          </div>
+          <p className='text-zinc-400 sm:text-xl'>{subTitle}</p>
+
+          {url && (
+            <a
+              href={url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='inline-flex items-center gap-2 bg-white/10 rounded-full py-2 px-4 lg:py-3 lg:px-6 hover:bg-white/20 transition-colors'
+            >
+              <Link2 className='w-5 h-5' />
+              Visit Project
+            </a>
+          )}
         </div>
+      </div>
+
+      {/* Scrollable Right Content */}
+      <div
+        ref={contentRef}
+        className='w-full lg:flex-1 px-2 md:px-10 xl:px-20 py-10 lg:py-20 space-y-20'
+      >
+        {/* Header Visual moved into content */}
         <div
-          ref={headerVisualRef}
-          className='w-full h-[60dvh] bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl mb-8'
+          id='header-visual'
+          className='relative w-full aspect-square rounded-2xl overflow-hidden mt-8'
         >
-          {/* Replace with your actual visual content */}
           <Image
             src='/projects/tutor.jpg'
             alt='Header visual'
             fill
-            className='object-cover rounded-2xl'
+            className='object-cover'
           />
         </div>
-      </div>
-      {/* Scrollable Content */}
-      <div ref={contentRef} id='project-content' className='relative z-0 gap'>
-        {/* Two-Column Layout */}
-        <div
-          ref={problemSolutionRef}
-          id='project-solution'
-          className='grid grid-cols-1 lg:grid-cols-2 gap-8 items-start'
-        >
-          {/* Problems Section */}
-          <div
-            id='problem-section'
-            className='bg-foreground text-background rounded-3xl p-8 flex flex-col h-full w-full'
-          >
-            <h2 className='text-2xl mb-2 font-bold'>{problemTitle}</h2>
-            {problemOverview && <p className='mb-4'>{problemOverview}</p>}
-            <ul className='list-disc list-inside space-y-2 flex-1 mb-6  px-4'>
-              {problems.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-            {problemImage && (
-              <div className='relative h-48 rounded-lg overflow-hidden'>
-                <Image
-                  src={problemImage}
-                  alt='Problem illustration'
-                  fill
-                  className='object-cover'
-                />
-              </div>
-            )}
-          </div>
 
-          {/* Solutions Section */}
-          <div
-            id='solution-section'
-            className='bg-bright-yellow text-background rounded-3xl p-8 flex flex-col h-full w-full'
-          >
-            <h2 className='text-2xl font-bold mb-2'>{solutionTitle}</h2>
-            {solutionOverview && <p className='mb-4'>{solutionOverview}</p>}
-            <ul className='list-disc list-inside space-y-2 flex-1 mb-6 px-4'>
-              {solutions.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-            {solutionImage && (
-              <div className='relative h-48 rounded-lg overflow-hidden'>
-                <Image
-                  src={solutionImage}
-                  alt='Solution illustration'
-                  fill
-                  className='object-cover'
-                />
-              </div>
-            )}
-          </div>
+        {/* Problem Section */}
+        <div
+          id='problem-section'
+          className='bg-foreground text-background rounded-3xl p-8 space-y-6'
+        >
+          <h2 className='text-3xl font-bold'>{problemTitle}</h2>
+          {problemOverview && <p className='text-lg'>{problemOverview}</p>}
+          <ul className='space-y-4 pl-6 list-disc'>
+            {problems.map((item, idx) => (
+              <li key={idx} className='text-lg'>
+                {item}
+              </li>
+            ))}
+          </ul>
+          {problemImage && (
+            <div className='relative h-64 rounded-xl overflow-hidden'>
+              <Image
+                src={problemImage}
+                alt='Problem illustration'
+                fill
+                className='object-cover'
+              />
+            </div>
+          )}
         </div>
+
+        {/* Solution Section */}
+        <div
+          id='solution-section'
+          className='bg-bright-yellow text-background rounded-3xl p-8 space-y-6'
+        >
+          <h2 className='text-3xl font-bold'>{solutionTitle}</h2>
+          {solutionOverview && <p className='text-lg'>{solutionOverview}</p>}
+          <ul className='space-y-4 pl-6 list-disc'>
+            {solutions.map((item, idx) => (
+              <li key={idx} className='text-lg'>
+                {item}
+              </li>
+            ))}
+          </ul>
+          {solutionImage && (
+            <div className='relative h-64 rounded-xl overflow-hidden'>
+              <Image
+                src={solutionImage}
+                alt='Solution illustration'
+                fill
+                className='object-cover'
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Video Section */}
         {videoUrl && (
-          <div id='video-section' className='{mt-12} space-y-6'>
-            <div className='text-center max-w-2xl mx-auto'>
-              {/* <h3 className='text-2xl font-semibold mb-2'>
-                {videoTitle || 'Project Demo'}
-              </h3> */}
+          <div id='video-section' className='space-y-8'>
+            <div className='text-center max-w-3xl mx-auto'>
               {videoOverview && (
-                <p className='text-zinc-400 text-sm'>{videoOverview}</p>
+                <p className='text-xl text-zinc-400'>{videoOverview}</p>
               )}
             </div>
-            <div className='aspect-video w-full rounded-xl overflow-hidden'>
-              {/* Video player */}
-              {/* <video
-        src={videoUrl}
-        poster={videoThumbnail}
-        controls
-        autoPlay
-        className='w-full max-w-4xl rounded-2xl shadow-2xl'
-      /> */}
+            <div className='aspect-video rounded-2xl overflow-hidden'>
               <iframe
-                className='w-full h-[80dvh] rounded-xl m-auto'
+                className='w-full h-full'
                 src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
-                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                 allowFullScreen
-                title='Embedded youtube'
               />
             </div>
           </div>

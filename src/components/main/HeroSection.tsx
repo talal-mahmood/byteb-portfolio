@@ -20,10 +20,10 @@ export function HeroSection() {
         {
           // desktop ≥1024px, mobile <1024px
           isDesktop: '(min-width: 1024px)',
-          isMobile: '(max-width: 1023px)',
+          isMobile: '(max-width: 500px)',
         },
         (context: gsap.Context) => {
-          const { isDesktop } = context.conditions!;
+          const { isDesktop, isMobile } = context.conditions!;
 
           // your intro tween
           gsap
@@ -63,7 +63,7 @@ export function HeroSection() {
               },
               {
                 display: 'block',
-                fontSize: '16px',
+                fontSize: isMobile ? '3dvw' : '16px',
                 fontWeight: 'semibold',
               }
             )
@@ -83,9 +83,10 @@ export function HeroSection() {
   return (
     <section
       ref={heroRef}
+      id='hero-section'
       className='relative bg-background text-foreground flex flex-col lg:flex-row items-center p-2 px-2 md:px-10 xl:p-20 mt-[64px] min-h-max h-[calc(100dvh-64px)] overflow-hidden'
     >
-      <div className='relative lg:max-w-1/2'>
+      <div className='relative w-full lg:max-w-1/2'>
         <h1
           id='main-heading'
           className='font-bold text-4xl sm:text-5xl md:text-6xl leading-tight tracking-tight text-[#fffffe]'
@@ -129,7 +130,7 @@ export function HeroSection() {
           </a>
         </div>
       </div>
-      <div className='w-full lg:max-w-1/2 max-lg:mt-20'>
+      <div className='w-full lg:max-w-1/2 max-lg:mt-12'>
         <h1
           id='right-text'
           ref={rightTextRef}
