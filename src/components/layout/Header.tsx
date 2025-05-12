@@ -79,9 +79,9 @@ const Header = () => {
       sections.current.forEach((section, i) => {
         ScrollTrigger.create({
           trigger: section,
-          start: 'bottom top+=100%',
-          end: 'top 100%',
-          onEnter: () => setActiveHash(NAV_ITEMS[i].hash),
+          start: 'bottom top',
+          end: 'top bottom',
+          onEnter: () => setActiveHash(NAV_ITEMS[i + 1].hash),
           onEnterBack: () => setActiveHash(NAV_ITEMS[i].hash),
         });
       });

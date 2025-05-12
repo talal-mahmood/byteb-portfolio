@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { Link2 } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
@@ -45,6 +45,16 @@ export default function ProjectDetail({
   const sectionRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [activeSection, setActiveSection] = useState(0); // Track active section
+
+  // Sections configuration
+  const sections = [
+    '#header-visual',
+    '#problem-section',
+    '#solution-section',
+    '#video-section',
+    // ...(videoUrl ? ['#video-section'] : []),
+  ];
 
   useGSAP(
     () => {
@@ -78,7 +88,8 @@ export default function ProjectDetail({
         '#header-visual',
         '#problem-section',
         '#solution-section',
-        ...(videoUrl ? ['#video-section'] : []),
+        '#video-section',
+        // ...(videoUrl ? ['#video-section'] : []),
       ]) as HTMLElement[];
 
       gsap.set(sections, { autoAlpha: 0, y: 50 });
@@ -108,6 +119,7 @@ export default function ProjectDetail({
               0
             );
           },
+          markers: true,
         },
       });
 
@@ -130,12 +142,23 @@ export default function ProjectDetail({
           .to(
             contentRef.current!,
             {
-              y: i !== 2 ? `-=${sectionHeights[i]}` : '-=70dvh', // ← only this section’s height
+              y:
+                // i === 3 ? '' :
+                i !== 2 ? `-=${sectionHeights[i]}` : '-=50dvh', // ← only this section’s height
               duration: 1,
               ease: 'none',
             },
             '<'
           );
+      });
+
+      sections.forEach((section, index) => {
+        ScrollTrigger.create({
+          trigger: `#${section.id}`,
+          start: 'top center',
+          end: 'bottom center',
+          onToggle: (self) => self.isActive && setActiveSection(index),
+        });
       });
 
       // // Sync with Lenis smooth scroll
@@ -145,6 +168,33 @@ export default function ProjectDetail({
       // }
     },
     { scope: sectionRef }
+  );
+
+  const TimelineIndicator = () => (
+    <div className='absolute right-0 top-1/2 hidden h-[70%] -translate-y-1/2 lg:block'>
+      <div className='relative h-full w-px bg-white/20'>
+        {sections.map((_, index) => (
+          <div
+            key={index}
+            className='absolute left-1/2 -translate-x-1/2 transition-all duration-300'
+            style={{ top: `${(index * 100) / (sections.length - 1)}%` }}
+          >
+            <div
+              className={`h-3 w-3 rounded-full transition-colors ${
+                index <= activeSection ? 'bg-[#eaf337]' : 'bg-white/20'
+              }`}
+            />
+            <div
+              className={`absolute left-1/2 top-full -translate-x-1/2 transition-opacity ${
+                index === activeSection ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <div className='mt-2 h-2 w-px bg-[#eaf337]' />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 
   return (
@@ -157,14 +207,14 @@ export default function ProjectDetail({
         ref={sidebarRef}
         className='sticky top-[63px] w-full lg:w-[40%] xl:w-[35%] px-2 md:px-10 xl:px-20 bg-background/90 backdrop-blur-md lg:bg-transparent z-10 h-max'
       >
-        <div className='lg:max-w-xl space-y-2 lg:space-y-8 flex flex-col items-center justify-center text-center h-[calc(100dvh-64px)]'>
+        <div className='lg:max-w-xl space-y-2 lg:space-y-8 flex flex-col items-center justify-center text-center lg:h-[calc(100dvh-64px)] h-max p-4'>
+          <TimelineIndicator />
           <h1 className='text-2xl md:text-4xl font-semibold lg:text-[3.5dvw]'>
             <MarkdownText>{title}</MarkdownText>
           </h1>
           <p className='text-zinc-400 sm:text-xl lg:text-[2dvw]'>
             <MarkdownText>{subTitle}</MarkdownText>
           </p>
-
           {url && (
             <a
               href={url}
