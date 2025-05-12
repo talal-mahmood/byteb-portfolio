@@ -178,7 +178,7 @@ const Header = () => {
                 }}
                 onClick={(e) => handleClick(e, hash)}
                 className={`flex items-center justify-between p-4 rounded-lg transition-colors ${
-                  activeHash === hash
+                  index !== 0 && activeHash === hash
                     ? 'bg-foreground/10 font-medium'
                     : 'hover:bg-foreground/5'
                 }`}

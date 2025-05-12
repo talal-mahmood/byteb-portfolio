@@ -59,115 +59,128 @@ export default function ProjectDetail({
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
+      const mm = gsap.matchMedia();
 
-      ScrollTrigger.matchMedia({
-        '(min-width: 1024px)': () => {
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: 'bottom bottom',
-            pin: sidebarRef.current,
-            pinSpacing: false,
-            anticipatePin: 1,
-          });
+      // Responsive animation setup
+      mm.add(
+        {
+          isDesktop: '(min-width: 768px)',
+          isMobile: '(max-width: 767px)',
         },
-        '(max-width: 1023px)': () => {
-          ScrollTrigger.create({
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: 'bottom bottom+=50%',
-            pin: sidebarRef.current,
-            pinSpacing: false,
-            anticipatePin: 1,
-          });
-        },
-      });
+        (context) => {
+          const { isDesktop, isMobile } = context.conditions!;
 
-      // Section transition animation
-      const sections = gsap.utils.toArray([
-        '#header-visual',
-        '#problem-section',
-        '#solution-section',
-        '#video-section',
-        // ...(videoUrl ? ['#video-section'] : []),
-      ]) as HTMLElement[];
-
-      gsap.set(sections, { autoAlpha: 0, y: 50 });
-
-      // Calculate total scroll height based on actual section heights
-      let totalHeight = 0;
-      const sectionHeights: number[] = [];
-
-      sections.forEach((section) => {
-        const height = section.offsetHeight;
-        sectionHeights.push(height);
-        totalHeight += height;
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: contentRef.current!,
-          start: 'top top',
-          end: () => `+=${totalHeight}`,
-          scrub: true,
-          pin: contentRef.current!,
-          anticipatePin: 1,
-          onRefresh: () => {
-            // Update heights on resize
-            totalHeight = sections.reduce(
-              (sum, section) => sum + section.offsetHeight,
-              0
-            );
-          },
-          // markers: true,
-        },
-      });
-
-      sections.forEach((section, i) => {
-        const prevHeight = i > 0 ? sectionHeights[i - 1] : 0;
-
-        tl.to(section, {
-          autoAlpha: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power2.out',
-        })
-          .to(section, { duration: 1 })
-          .to(section, {
-            autoAlpha: 0,
-            y: -50,
-            duration: 1,
-            ease: 'power2.in',
-          })
-          .to(
-            contentRef.current!,
-            {
-              y:
-                // i === 3 ? '' :
-                // i !== 2 ?
-                `-=${sectionHeights[i]}`, // ← only this section’s height
-              //  : '-=50dvh'
-              duration: 1,
-              ease: 'none',
+          ScrollTrigger.matchMedia({
+            '(min-width: 1024px)': () => {
+              ScrollTrigger.create({
+                trigger: sectionRef.current,
+                start: 'top top',
+                end: 'bottom bottom',
+                pin: sidebarRef.current,
+                pinSpacing: false,
+                anticipatePin: 1,
+              });
             },
-            '<'
-          );
-      });
+            '(max-width: 1023px)': () => {
+              ScrollTrigger.create({
+                trigger: sectionRef.current,
+                start: 'top top',
+                end: 'bottom bottom+=50%',
+                pin: sidebarRef.current,
+                pinSpacing: false,
+                anticipatePin: 1,
+              });
+            },
+          });
 
-      sections.forEach((section, index) => {
-        ScrollTrigger.create({
-          trigger: `#${section.id}`,
-          start: 'top center',
-          end: 'bottom center',
-          onToggle: (self) => self.isActive && setActiveSection(index),
-        });
-      });
+          // Section transition animation
+          const sections = gsap.utils.toArray([
+            '#header-visual',
+            '#problem-section',
+            '#solution-section',
+            '#video-section',
+            // ...(videoUrl ? ['#video-section'] : []),
+          ]) as HTMLElement[];
 
-      // // Sync with Lenis smooth scroll
-      // if (window.lenis) {
-      //   lenis.on('scroll', ScrollTrigger.update);
-      //   ScrollTrigger.addEventListener('refresh', () => lenis.resize());
-      // }
+          gsap.set(sections, { autoAlpha: 0, y: 50 });
+
+          // Calculate total scroll height based on actual section heights
+          let totalHeight = 0;
+          const sectionHeights: number[] = [];
+
+          sections.forEach((section) => {
+            const height = section.offsetHeight;
+            sectionHeights.push(height);
+            totalHeight += height;
+          });
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: contentRef.current!,
+              start: 'top top',
+              end: () => `+=${totalHeight}`,
+              scrub: true,
+              pin: contentRef.current!,
+              anticipatePin: 1,
+              onRefresh: () => {
+                // Update heights on resize
+                totalHeight = sections.reduce(
+                  (sum, section) => sum + section.offsetHeight,
+                  0
+                );
+              },
+              // markers: true,
+            },
+          });
+
+          sections.forEach((section, i) => {
+            const yStart = isMobile ? 500 : 100; // Different start position
+            const yEnd = isMobile ? 200 : 0; // Different exit position
+
+            tl.fromTo(
+              section,
+              { y: yStart },
+              {
+                autoAlpha: 1,
+                y: yEnd,
+                duration: 1,
+                ease: 'power2.out',
+              }
+            )
+              .to(section, { duration: 1 })
+              .to(section, {
+                autoAlpha: 0,
+                y: -50,
+                duration: 1,
+                ease: 'power2.in',
+              })
+              .to(
+                contentRef.current!,
+                {
+                  y:
+                    // i === 3 ? '' :
+                    // i !== 2 ?
+                    `-=${sectionHeights[i]}`, // ← only this section’s height
+                  //  : '-=50dvh'
+                  duration: 1,
+                  ease: 'none',
+                },
+                '<'
+              );
+          });
+
+          sections.forEach((section, index) => {
+            ScrollTrigger.create({
+              trigger: `#${section.id}`,
+              start: 'top center',
+              end: 'bottom center',
+              onToggle: (self) => self.isActive && setActiveSection(index),
+            });
+          });
+        }
+      );
+
+      return () => mm.revert();
     },
     { scope: sectionRef }
   );

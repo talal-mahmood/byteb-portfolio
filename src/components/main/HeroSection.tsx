@@ -64,7 +64,7 @@ export function HeroSection() {
               },
               {
                 display: 'block',
-                fontSize: isSm ? '3dvw' : '1.35dvw',
+                fontSize: isMobile ? '3dvw' : '1.35dvw',
                 fontWeight: 'semibold',
               }
             )
