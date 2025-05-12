@@ -19,12 +19,12 @@ export function HeroSection() {
       mm.add(
         {
           // desktop ≥1024px, mobile <1024px
-          isXl: 'min-width: 1280',
           isDesktop: '(min-width: 1024px)',
-          isMobile: '(max-width: 500px)',
+          isMobile: '(max-width: 1023px)',
+          isSm: '(max-width: 500px)',
         },
         (context: gsap.Context) => {
-          const { isXl, isDesktop, isMobile } = context.conditions!;
+          const { isSm, isDesktop, isMobile } = context.conditions!;
 
           // your intro tween
           gsap
@@ -64,7 +64,7 @@ export function HeroSection() {
               },
               {
                 display: 'block',
-                fontSize: isMobile ? '3dvw' : '1.35dvw',
+                fontSize: isSm ? '3dvw' : '1.35dvw',
                 fontWeight: 'semibold',
               }
             )
