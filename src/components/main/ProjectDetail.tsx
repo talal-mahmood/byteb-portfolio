@@ -65,7 +65,7 @@ export default function ProjectDetail({
           ScrollTrigger.create({
             trigger: sectionRef.current,
             start: 'top top',
-            end: 'bottom bottom',
+            end: 'bottom bottom+=50%',
             pin: sidebarRef.current,
             pinSpacing: false,
             anticipatePin: 1,
@@ -73,41 +73,76 @@ export default function ProjectDetail({
         },
       });
 
-      // Scroll snapping for sections
-      const sections = gsap.utils
-        .toArray(['#problem-section', '#solution-section', '#video-section'])
-        .filter((section: any) => section) as HTMLElement[];
+      // Section transition animation
+      const sections = gsap.utils.toArray([
+        '#header-visual',
+        '#problem-section',
+        '#solution-section',
+        ...(videoUrl ? ['#video-section'] : []),
+      ]) as HTMLElement[];
 
-      if (sections.length > 0) {
-        ScrollTrigger.create({
-          trigger: contentRef.current,
+      gsap.set(sections, { autoAlpha: 0, y: 50 });
+
+      // Calculate total scroll height based on actual section heights
+      let totalHeight = 0;
+      const sectionHeights: number[] = [];
+
+      sections.forEach((section) => {
+        const height = section.offsetHeight;
+        sectionHeights.push(height);
+        totalHeight += height;
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: contentRef.current!,
           start: 'top top',
-          end: 'bottom bottom',
-          snap: {
-            snapTo: (progress, self) => {
-              let st = self?.scroll();
-              return gsap.utils.snap(
-                sections.map((s) => ScrollTrigger.positionInDir(s, 'top')),
-                st
-              );
-            },
-            duration: { min: 0.4, max: 0.8 },
-            ease: 'power3.out',
-            inertia: false,
+          end: () => `+=${totalHeight}`,
+          scrub: true,
+          pin: contentRef.current!,
+          anticipatePin: 1,
+          onRefresh: () => {
+            // Update heights on resize
+            totalHeight = sections.reduce(
+              (sum, section) => sum + section.offsetHeight,
+              0
+            );
           },
-          markers: false,
-        });
-      }
+        },
+      });
 
-      // gsap.from('#header-visual', {
-      //   scale: 1.1,
-      //   scrollTrigger: {
-      //     trigger: '#header-visual',
-      //     start: 'top bottom',
-      //     end: 'bottom top',
-      //     scrub: true,
-      //   },
-      // });
+      sections.forEach((section, i) => {
+        const prevHeight = i > 0 ? sectionHeights[i - 1] : 0;
+
+        tl.to(section, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power2.out',
+        })
+          .to(section, { duration: 1 })
+          .to(section, {
+            autoAlpha: 0,
+            y: -50,
+            duration: 1,
+            ease: 'power2.in',
+          })
+          .to(
+            contentRef.current!,
+            {
+              y: i !== 2 ? `-=${sectionHeights[i]}` : '-=70dvh', // ← only this section’s height
+              duration: 1,
+              ease: 'none',
+            },
+            '<'
+          );
+      });
+
+      // // Sync with Lenis smooth scroll
+      // if (window.lenis) {
+      //   lenis.on('scroll', ScrollTrigger.update);
+      //   ScrollTrigger.addEventListener('refresh', () => lenis.resize());
+      // }
     },
     { scope: sectionRef }
   );
@@ -120,10 +155,10 @@ export default function ProjectDetail({
       {/* Left Pinned Sidebar */}
       <div
         ref={sidebarRef}
-        className='sticky top-[63px] w-full lg:w-[40%] xl:w-[35%] px-2 md:px-10 xl:px-20 bg-background/90 {backdrop-blur-md} lg:bg-transparent z-10 h-max'
+        className='sticky top-[63px] w-full lg:w-[40%] xl:w-[35%] px-2 md:px-10 xl:px-20 bg-background/90 backdrop-blur-md lg:bg-transparent z-10 h-max'
       >
         <div className='lg:max-w-xl space-y-2 lg:space-y-8 flex flex-col items-center justify-center text-center h-[calc(100dvh-64px)]'>
-          <h1 className='text-2xl md:text-4xl {xl:text-5xl} font-semibold lg:text-[3.5dvw]'>
+          <h1 className='text-2xl md:text-4xl font-semibold lg:text-[3.5dvw]'>
             <MarkdownText>{title}</MarkdownText>
           </h1>
           <p className='text-zinc-400 sm:text-xl lg:text-[2dvw]'>
@@ -149,7 +184,7 @@ export default function ProjectDetail({
         ref={contentRef}
         className='w-full lg:flex-1 px-2 md:px-10 xl:px-20 py-10 lg:py-20 space-y-20'
       >
-        {/* Header Visual moved into content */}
+        {/* Header Visual */}
         <div
           id='header-visual'
           className='relative w-full aspect-video rounded-2xl overflow-hidden mt-8'
