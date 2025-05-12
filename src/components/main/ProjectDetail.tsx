@@ -144,7 +144,9 @@ export default function ProjectDetail({
             {
               y:
                 // i === 3 ? '' :
-                i !== 2 ? `-=${sectionHeights[i]}` : '-=50dvh', // ← only this section’s height
+                // i !== 2 ?
+                `-=${sectionHeights[i]}`, // ← only this section’s height
+              //  : '-=50dvh'
               duration: 1,
               ease: 'none',
             },
@@ -171,7 +173,7 @@ export default function ProjectDetail({
   );
 
   const TimelineIndicator = () => (
-    <div className='absolute right-0 top-1/2 hidden h-[70%] -translate-y-1/2 lg:block'>
+    <div className='absolute right-0 top-1/2 hidden h-[36%] -translate-y-1/2 lg:block'>
       <div className='relative h-full w-px bg-white/20'>
         {sections.map((_, index) => (
           <div
@@ -184,13 +186,13 @@ export default function ProjectDetail({
                 index <= activeSection ? 'bg-[#eaf337]' : 'bg-white/20'
               }`}
             />
-            <div
+            {/* <div
               className={`absolute left-1/2 top-full -translate-x-1/2 transition-opacity ${
                 index === activeSection ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <div className='mt-2 h-2 w-px bg-[#eaf337]' />
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
@@ -232,7 +234,7 @@ export default function ProjectDetail({
       {/* Scrollable Right Content */}
       <div
         ref={contentRef}
-        className='w-full lg:flex-1 px-2 md:px-10 xl:px-20 py-10 lg:py-20 space-y-20'
+        className='w-full lg:flex-1 px-2 md:px-10 xl:px-20 py-10 lg:py-20 {space-y-20}'
       >
         {/* Header Visual */}
         <div
@@ -314,22 +316,38 @@ export default function ProjectDetail({
 
         {/* Video Section */}
         {videoUrl && (
-          <div id='video-section' className='space-y-8'>
-            <div className='text-center max-w-3xl mx-auto'>
-              {videoOverview && (
-                <div className='text-xl text-zinc-400'>
-                  <MarkdownText>{videoOverview}</MarkdownText>
-                </div>
-              )}
+          <>
+            <div id='video-section' className='space-y-8'>
+              <div className='text-center max-w-3xl mx-auto'>
+                {videoOverview && (
+                  <div className='text-xl text-zinc-400'>
+                    <MarkdownText>{videoOverview}</MarkdownText>
+                  </div>
+                )}
+              </div>
+              <div className='aspect-video rounded-2xl overflow-hidden'>
+                <iframe
+                  className='w-full h-full'
+                  src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
+                  allowFullScreen
+                />
+              </div>
             </div>
-            <div className='aspect-video rounded-2xl overflow-hidden'>
+            {/* Hidden Spacer Div */}
+            <div
+              className='aspect-video rounded-2xl overflow-hidden'
+              style={{
+                opacity: 0,
+                pointerEvents: 'none',
+              }}
+            >
               <iframe
                 className='w-full h-full'
                 src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
                 allowFullScreen
               />
             </div>
-          </div>
+          </>
         )}
       </div>
     </section>

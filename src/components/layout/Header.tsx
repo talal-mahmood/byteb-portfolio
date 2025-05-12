@@ -199,7 +199,7 @@ const Header = () => {
         <div className='p-6 border-t border-border/20'>
           <a
             href='https://calendly.com/muhammad-inam-f0mv/30min'
-            className='flex items-center justify-center gap-2 w-full bg-foreground text-background py-3 px-6 rounded-lg font-medium hover:bg-foreground/90 transition-colors'
+            className='flex items-center justify-center gap-2 w-full bg-foreground text-background py-3 px-6 rounded-lg font-semibold hover:bg-foreground/90 transition-colors'
             target='_blank'
             rel='noopener noreferrer'
           >
@@ -268,7 +268,7 @@ const Header = () => {
           <div className='flex items-center sm:space-x-4'>
             <a
               href='https://calendly.com/muhammad-inam-f0mv/30min'
-              className='bg-foreground text-background px-5 py-2 rounded-lg text-sm font-medium hover:bg-foreground/90 transition-colors whitespace-nowrap'
+              className='bg-foreground text-background px-5 py-2 rounded-lg text-sm font-semibold hover:bg-foreground/90 transition-colors whitespace-nowrap'
               target='_blank'
               rel='noopener noreferrer'
             >
