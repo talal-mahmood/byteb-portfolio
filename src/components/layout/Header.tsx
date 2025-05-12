@@ -11,12 +11,10 @@ import Link from 'next/link';
 import { Menu, X, ExternalLink } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 
-// Register ScrollToPlugin
 gsap.registerPlugin(ScrollTrigger);
 
-// Navigation items
 const NAV_ITEMS = [
-  // { label: '', hash: '#hero-section' },
+  { label: '', hash: '#hero-section' },
   { label: 'Self Learning Tool', hash: '#self-learning-tool' },
   { label: 'Legal Analysis Agent', hash: '#legal-analysis-agent' },
   { label: 'Agent Builder', hash: '#agent-builder' },
@@ -29,29 +27,13 @@ const Header = () => {
   const drawerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
-  const underlineRef = useRef<HTMLSpanElement>(null);
   const mobileNavRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const sections = useRef<HTMLElement[]>([]);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  // const [isInitialized, setIsInitialized] = useState(false);
   const [activeHash, setActiveHash] = useState('');
 
-  // // Initialize drawer position
-  // useEffect(() => {
-  //   if (drawerRef.current) {
-  //     gsap.set(drawerRef.current, {
-  //       x: '100%',
-  //       autoAlpha: 0,
-  //       display: 'none',
-  //     });
-  //   }
-
-  //   setIsInitialized(true);
-  // }, []);
-
-  // Handle scroll events to change header appearance
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -64,59 +46,43 @@ const Header = () => {
 
   useGSAP(
     () => {
-      if (!navRef.current || !underlineRef.current) return;
+      if (!navRef.current) return;
 
-      // Collect section elements
+      // grab your sections
       sections.current = NAV_ITEMS.map(
         ({ hash }) => document.querySelector(hash) as HTMLElement
       ).filter(Boolean);
 
-      const links = Array.from(
-        navRef.current.querySelectorAll('a')
-      ) as HTMLElement[];
-
-      // Mobile: update activeHash on scroll
-      sections.current.forEach((section, i) => {
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'bottom top',
-          end: 'top bottom',
-          onEnter: () => setActiveHash(NAV_ITEMS[i + 1].hash),
-          onEnterBack: () => setActiveHash(NAV_ITEMS[i].hash),
+      // create a matchMedia context
+      const mm = gsap.matchMedia();
+      mm.add('(min-width: 1024px)', () => {
+        // desktop: width ≥ 1024px
+        sections.current.forEach((section, i) => {
+          ScrollTrigger.create({
+            trigger: section,
+            start: 'bottom top+=75%',
+            end: 'top bottom+=200%',
+            onEnter: () => setActiveHash(NAV_ITEMS[i]?.hash || ''),
+            onEnterBack: () => setActiveHash(NAV_ITEMS[i - 1]?.hash || ''),
+          });
         });
       });
 
-      // Desktop: underline animation
-      const moveUnderline = (el: HTMLElement) => {
-        gsap.to(underlineRef.current, {
-          x: el.offsetLeft,
-          width: el.offsetWidth,
-          duration: 0.3,
-          ease: 'power2.out',
+      mm.add('(max-width: 1023px)', () => {
+        // mobile: width < 1024px
+        sections.current.forEach((section, i) => {
+          ScrollTrigger.create({
+            trigger: section,
+            start: 'bottom top',
+            end: 'top bottom',
+            onEnter: () => setActiveHash(NAV_ITEMS[i + 1]?.hash || ''),
+            onEnterBack: () => setActiveHash(NAV_ITEMS[i]?.hash || ''),
+          });
         });
-      };
-
-      // Initial underline
-      if (links[0]) {
-        gsap.set(underlineRef.current, {
-          x: links[0].offsetLeft,
-          width: links[0].offsetWidth,
-        });
-      }
-
-      ScrollTrigger.batch(sections.current, {
-        onEnter: (batch) => {
-          const index = sections.current.indexOf(batch[0] as HTMLElement);
-          moveUnderline(links[index]);
-        },
-        onEnterBack: (batch) => {
-          const index = sections.current.indexOf(batch[0] as HTMLElement);
-          moveUnderline(links[index]);
-        },
-        start: 'bottom top+=100%',
-        end: 'top 100%',
-        once: false,
       });
+
+      // // cleanup on unmount
+      // return () => mm.revert();
     },
     { scope: headerRef }
   );
@@ -220,7 +186,9 @@ const Header = () => {
                 <span>{label}</span>
                 <div
                   className={`w-1.5 h-1.5 rounded-full ${
-                    activeHash === hash ? 'bg-bright-yellow' : 'bg-transparent'
+                    index !== 0 && activeHash === hash
+                      ? 'bg-bright-yellow'
+                      : 'bg-transparent'
                   }`}
                 />
               </Link>
@@ -268,23 +236,32 @@ const Header = () => {
             ref={navRef}
           >
             <div className='flex space-x-1'>
-              {NAV_ITEMS.map(({ label, hash }) => (
+              {NAV_ITEMS.map(({ label, hash }, index) => (
                 <Link
                   key={hash}
                   href={hash}
                   onClick={(e) => handleClick(e, hash)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white/80 lg:text-[1.04dvw]`}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white/80 lg:text-[1.04dvw] flex items-center gap-2 {activeHash === hash ? 'bg-foreground/10 font-medium' : ''}
+                  `}
                 >
-                  {label}
+                  <div
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      index !== 0 && activeHash === hash
+                        ? 'bg-bright-yellow'
+                        : 'bg-transparent'
+                    }`}
+                  />
+                  <span>{label}</span>
+                  {/* <div
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      activeHash === hash
+                        ? 'bg-bright-yellow'
+                        : 'bg-transparent'
+                    }`}
+                  /> */}
                 </Link>
               ))}
             </div>
-
-            {/* ✅ Underline element */}
-            <span
-              ref={underlineRef}
-              className='absolute bottom-0 left-0 h-0.5 bg-bright-yellow hidden lg:block transition-all duration-300'
-            />
           </nav>
 
           {/* CTA Button and Mobile Menu */}

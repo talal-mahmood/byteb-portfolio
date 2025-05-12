@@ -119,7 +119,7 @@ export default function ProjectDetail({
               0
             );
           },
-          markers: true,
+          // markers: true,
         },
       });
 
@@ -212,9 +212,9 @@ export default function ProjectDetail({
           <h1 className='text-2xl md:text-4xl font-semibold lg:text-[3.5dvw]'>
             <MarkdownText>{title}</MarkdownText>
           </h1>
-          <p className='text-zinc-400 sm:text-xl lg:text-[2dvw]'>
+          <div className='text-zinc-400 sm:text-xl lg:text-[2dvw]'>
             <MarkdownText>{subTitle}</MarkdownText>
-          </p>
+          </div>
           {url && (
             <a
               href={url}
@@ -257,9 +257,9 @@ export default function ProjectDetail({
             <MarkdownText>{problemTitle}</MarkdownText>
           </h2>
           {problemOverview && (
-            <p className='text-lg lg:text-[1.2dvw]'>
+            <div className='text-lg lg:text-[1.2dvw]'>
               <MarkdownText>{problemOverview}</MarkdownText>
-            </p>
+            </div>
           )}
           <ul className='space-y-4 pl-6 list-disc'>
             {problems.map((item, idx) => (
@@ -289,9 +289,9 @@ export default function ProjectDetail({
             <MarkdownText>{solutionTitle}</MarkdownText>
           </h2>
           {solutionOverview && (
-            <p className='text-lg lg:text-[1.2dvw]'>
+            <div className='text-lg lg:text-[1.2dvw]'>
               <MarkdownText>{solutionOverview}</MarkdownText>
-            </p>
+            </div>
           )}
           <ul className='space-y-4 pl-6 list-disc'>
             {solutions.map((item, idx) => (
@@ -317,9 +317,9 @@ export default function ProjectDetail({
           <div id='video-section' className='space-y-8'>
             <div className='text-center max-w-3xl mx-auto'>
               {videoOverview && (
-                <p className='text-xl text-zinc-400'>
+                <div className='text-xl text-zinc-400'>
                   <MarkdownText>{videoOverview}</MarkdownText>
-                </p>
+                </div>
               )}
             </div>
             <div className='aspect-video rounded-2xl overflow-hidden'>
