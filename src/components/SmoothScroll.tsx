@@ -1,11 +1,43 @@
+// SmoothScroll.tsx
 'use client';
 
+import { ScrollProvider } from '@/contexts/ScrollContext';
 import gsap from 'gsap';
 import { ReactLenis } from 'lenis/react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-function SmoothScroll({ children }: any) {
+function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<any>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    const handleLoad = () => {
+      if (lenisRef.current?.lenis) {
+        // Temporarily disable smooth scrolling
+        lenisRef.current.lenis.stop();
+
+        // Scroll to top instantly using native scroll
+        window.scrollTo(0, 0);
+
+        // Wait for next tick to ensure scroll is complete
+        requestAnimationFrame(() => {
+          // Mark initialization as complete
+          setIsInitialized(true);
+
+          // Re-enable smooth scrolling
+          setTimeout(() => {
+            lenisRef.current.lenis.start();
+          }, 100);
+        });
+      }
+    };
+
+    // Run initialization
+    handleLoad();
+    window.addEventListener('load', handleLoad);
+
+    return () => window.removeEventListener('load', handleLoad);
+  }, []);
 
   useEffect(() => {
     function update(time: any) {
@@ -13,22 +45,11 @@ function SmoothScroll({ children }: any) {
     }
 
     gsap.ticker.add(update);
-
     return () => gsap.ticker.remove(update);
   }, []);
 
   return (
     <ReactLenis
-      // options={{
-      //   autoRaf: false,
-      //   duration: 0.1,
-      //   lerp: 0.1,
-      //   // easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)), // Custom ease
-      //   orientation: 'vertical',
-      //   gestureOrientation: 'vertical',
-      //   smoothWheel: true,
-      //   touchMultiplier: 1,
-      // }}
       options={{
         autoRaf: false,
         duration: 2,
@@ -42,7 +63,7 @@ function SmoothScroll({ children }: any) {
       ref={lenisRef}
       root
     >
-      {children}
+      <ScrollProvider isInitialized={isInitialized}>{children}</ScrollProvider>
     </ReactLenis>
   );
 }

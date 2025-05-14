@@ -7,6 +7,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import MarkdownText from '../MarkdownText';
+import { useScroll } from '@/contexts/ScrollContext';
 
 interface ProjectDetailProps {
   id?: string;
@@ -42,6 +43,7 @@ export default function ProjectDetail({
   videoUrl,
   videoOverview,
 }: ProjectDetailProps) {
+  const { isInitialized } = useScroll();
   const sectionRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -58,6 +60,8 @@ export default function ProjectDetail({
 
   useGSAP(
     () => {
+      if (!isInitialized) return;
+
       gsap.registerPlugin(ScrollTrigger);
       const mm = gsap.matchMedia();
 
@@ -342,7 +346,7 @@ export default function ProjectDetail({
               id='video-section'
               className='w-full h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
             >
-              <div className='w-full space-y-8'>
+              <div className='w-full {space-y-8}'>
                 <div className='text-center max-w-3xl mx-auto'>
                   {videoOverview && (
                     <div className='text-xl text-zinc-400'>

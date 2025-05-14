@@ -20,6 +20,7 @@ const NAV_ITEMS = [
   { label: 'Agent Builder', hash: '#agent-builder' },
   { label: 'Lead Intelligence', hash: '#lead-intelligence' },
   { label: 'Smart PLAB Assistant', hash: '#smart-plab-assistant' },
+  // { label: '', hash: '#footer-section' },
 ];
 
 const Header = () => {
@@ -60,7 +61,7 @@ const Header = () => {
         sections.current.forEach((section, i) => {
           ScrollTrigger.create({
             trigger: section,
-            start: 'bottom top+=75%',
+            start: 'bottom top+=200%',
             end: 'top bottom+=200%',
             onEnter: () => setActiveHash(NAV_ITEMS[i]?.hash || ''),
             onEnterBack: () => setActiveHash(NAV_ITEMS[i - 1]?.hash || ''),
@@ -73,10 +74,10 @@ const Header = () => {
         sections.current.forEach((section, i) => {
           ScrollTrigger.create({
             trigger: section,
-            start: 'bottom top',
-            end: 'top bottom',
-            onEnter: () => setActiveHash(NAV_ITEMS[i + 1]?.hash || ''),
-            onEnterBack: () => setActiveHash(NAV_ITEMS[i]?.hash || ''),
+            start: 'bottom top+=200%',
+            end: 'top bottom+=200%',
+            onEnter: () => setActiveHash(NAV_ITEMS[i]?.hash || ''),
+            onEnterBack: () => setActiveHash(NAV_ITEMS[i - 1]?.hash || ''),
           });
         });
       });
