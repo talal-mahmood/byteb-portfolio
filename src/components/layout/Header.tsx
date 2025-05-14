@@ -126,11 +126,14 @@ const Header = () => {
     if (!target) return;
 
     // Calculate final scroll position (minus your header height)
-    const headerOffset = 80;
+    const headerOffset = 72;
+    const extraOffset = 236;
+
     const top =
       (target as HTMLElement).getBoundingClientRect().top +
       window.scrollY -
-      headerOffset;
+      headerOffset +
+      extraOffset;
 
     // Let Lenis do the smooth scrolling
     lenis?.scrollTo(top, {

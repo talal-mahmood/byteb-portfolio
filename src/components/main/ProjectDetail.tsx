@@ -60,7 +60,7 @@ export default function ProjectDetail({
 
   useGSAP(
     () => {
-      if (!isInitialized) return;
+      // if (!isInitialized) return;
 
       gsap.registerPlugin(ScrollTrigger);
       const mm = gsap.matchMedia();
@@ -173,7 +173,7 @@ export default function ProjectDetail({
 
       return () => mm.revert();
     },
-    { scope: sectionRef }
+    { dependencies: [isInitialized], scope: sectionRef }
   );
 
   const TimelineIndicator = () => (
