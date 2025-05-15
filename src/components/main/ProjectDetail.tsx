@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Link2 } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
@@ -48,6 +48,7 @@ export default function ProjectDetail({
   const sidebarRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState(0); // Track active section
+  const [heightTooSmall, setHeightTooSmall] = useState(false);
 
   // Sections configuration
   const sections = [
@@ -58,6 +59,10 @@ export default function ProjectDetail({
     // ...(videoUrl ? ['#video-section'] : []),
   ];
 
+  useEffect(() => {
+    console.log('heightTooSmall: ', heightTooSmall);
+  }, [heightTooSmall]);
+
   useGSAP(
     () => {
       // if (!isInitialized) return;
@@ -67,13 +72,15 @@ export default function ProjectDetail({
 
       mm.add(
         {
-          isDesktop: '(min-width: 1024px)', // lg breakpoint
-          isMobile: '(max-width: 1023px)',
+          isDesktop: '(min-width: 1024px) and (max-aspect-ratio: 1999/1000)',
+          isMobile: '(max-width: 1023px), (min-aspect-ratio: 2/1)',
         },
         (context) => {
           const { isDesktop } = context.conditions!;
+          console.log('isDesktop: ', isDesktop);
 
           if (isDesktop) {
+            setHeightTooSmall(false);
             // Only run desktop animations on large screens
             ScrollTrigger.create({
               trigger: sectionRef.current,
@@ -157,6 +164,7 @@ export default function ProjectDetail({
               });
             });
           } else {
+            setHeightTooSmall(true);
             // Mobile styles reset
             gsap.set(
               [
@@ -179,7 +187,11 @@ export default function ProjectDetail({
   const TimelineIndicator = () => (
     <>
       {/* Vertical timeline for lg screens and above */}
-      <div className='absolute right-0 top-1/2 hidden h-[36%] -translate-y-1/2 lg:block'>
+      <div
+        className={`absolute right-0 top-1/2 hidden h-[36%] -translate-y-1/2 ${
+          heightTooSmall || 'lg:block'
+        }`}
+      >
         <div className='relative h-full w-px bg-white/20'>
           {sections.map((_, index) => (
             <div
@@ -221,19 +233,36 @@ export default function ProjectDetail({
   return (
     <section
       ref={sectionRef}
-      className='flex flex-col lg:flex-row min-h-screen bg-background text-foreground'
+      className={`flex flex-col ${
+        heightTooSmall || 'lg:flex-row'
+      } min-h-screen bg-background text-foreground`}
     >
       {/* Left Pinned Sidebar */}
       <div
         ref={sidebarRef}
-        className='sticky top-[63px] w-full lg:w-[40%] xl:w-[35%] px-2 md:px-10 lg:pl-0 {xl:px-20} bg-background/90 backdrop-blur-md lg:bg-transparent z-10 h-max'
+        className={`sticky top-[63px] w-full px-2 md:px-10 {xl:px-20} bg-background/90 backdrop-blur-md ${
+          heightTooSmall || 'xl:w-[35%] lg:w-[40%] lg:pl-0 lg:bg-transparent'
+        } z-10 h-max`}
       >
-        <div className='lg:max-w-xl space-y-2 lg:space-y-8 flex flex-col items-center justify-center text-center lg:h-[calc(100dvh-64px)] h-max px-4 pt-6 pb-8'>
+        <div
+          className={`space-y-2 flex flex-col items-center justify-center text-center ${
+            heightTooSmall ||
+            'lg:max-w-xl lg:space-y-8 lg:h-[calc(100dvh-64px)]'
+          } h-max px-4 pt-6 pb-8`}
+        >
           <TimelineIndicator />
-          <h1 className='text-2xl md:text-4xl font-semibold lg:text-[3.5dvw]'>
+          <h1
+            className={`text-2xl md:text-4xl font-semibold ${
+              heightTooSmall || 'lg:text-[3.5dvw]'
+            }`}
+          >
             <MarkdownText>{title}</MarkdownText>
           </h1>
-          <div className='text-zinc-400 sm:text-xl lg:text-[2dvw]'>
+          <div
+            className={`text-zinc-400 sm:text-xl ${
+              heightTooSmall || 'lg:text-[2dvw]'
+            }`}
+          >
             <MarkdownText>{subTitle}</MarkdownText>
           </div>
           {url && (
@@ -241,7 +270,9 @@ export default function ProjectDetail({
               href={url}
               target='_blank'
               rel='noopener noreferrer'
-              className='inline-flex items-center gap-2 bg-white/10 rounded-full py-2 px-4 lg:py-3 lg:px-6 hover:bg-white/20 transition-colors '
+              className={`inline-flex items-center gap-2 bg-white/10 rounded-full py-2 px-4 ${
+                heightTooSmall || 'lg:py-3 lg:px-6'
+              } hover:bg-white/20 transition-colors `}
             >
               <Link2 className='w-5 h-5' />
               Visit Project
@@ -253,12 +284,18 @@ export default function ProjectDetail({
       {/* Scrollable Right Content */}
       <div
         ref={contentRef}
-        className='w-full lg:flex-1 px-2 md:px-10 lg:pr-0 {xl:px-20} py-10 lg:py-20 max-lg:space-y-2'
+        className={`w-full md:px-10 {xl:px-20} py-10  ${
+          heightTooSmall
+            ? 'space-y-2 lg:flex-1 lg:px-0 lg:py-20'
+            : 'space-y-2 px-2 lg:pr-0'
+        } max-lg:space-y-2`}
       >
         {/* Header Visual */}
         <div
           id='header-visual'
-          className='w-full h-max lg:h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
+          className={`w-full h-max ${
+            heightTooSmall || 'lg:h-[calc(100dvh-72px)]'
+          } flex items-center justify-center overflow-hidden`}
         >
           <div className='relative w-full aspect-video rounded-3xl overflow-hidden'>
             <Image
@@ -274,20 +311,33 @@ export default function ProjectDetail({
         {/* Problem Section */}
         <div
           id='problem-section'
-          className='w-full h-max lg:h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
+          className={`w-full h-max ${
+            heightTooSmall || 'lg:h-[calc(100dvh-72px)] w-full'
+          } flex items-center justify-center overflow-hidden`}
         >
-          <div className='bg-foreground text-background rounded-3xl p-8 space-y-6'>
-            <h2 className='text-3xl lg:text-[2dvw] font-bold'>
+          <div className='bg-foreground text-background rounded-3xl p-8 space-y-6 w-full'>
+            <h2
+              className={`text-3xl ${
+                heightTooSmall || 'lg:text-[2dvw]'
+              } font-bold`}
+            >
               <MarkdownText>{problemTitle}</MarkdownText>
             </h2>
             {problemOverview && (
-              <div className='text-lg lg:text-[1.2dvw]'>
+              <div
+                className={`text-lg ${heightTooSmall || 'lg:text-[1.2dvw]'}`}
+              >
                 <MarkdownText>{problemOverview}</MarkdownText>
               </div>
             )}
             <ul className='space-y-4 pl-6 list-disc'>
               {problems.map((item, idx) => (
-                <li key={idx} className='text-lg lg:text-[1.175dvw]'>
+                <li
+                  key={idx}
+                  className={`text-lg ${
+                    heightTooSmall || 'lg:text-[1.175dvw]'
+                  }`}
+                >
                   <MarkdownText>{item}</MarkdownText>
                 </li>
               ))}
@@ -308,20 +358,33 @@ export default function ProjectDetail({
         {/* Solution Section */}
         <div
           id='solution-section'
-          className='w-full h-max lg:h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
+          className={`w-full h-max ${
+            heightTooSmall || 'lg:h-[calc(100dvh-72px)] w-full'
+          } flex items-center justify-center overflow-hidden`}
         >
-          <div className='bg-bright-yellow text-background rounded-3xl p-8 space-y-6'>
-            <h2 className='text-3xl font-bold lg:text-[2dvw]'>
+          <div className='bg-bright-yellow text-background rounded-3xl p-8 space-y-6 w-full'>
+            <h2
+              className={`text-3xl font-bold ${
+                heightTooSmall || 'lg:text-[2dvw]'
+              }`}
+            >
               <MarkdownText>{solutionTitle}</MarkdownText>
             </h2>
             {solutionOverview && (
-              <div className='text-lg lg:text-[1.2dvw]'>
+              <div
+                className={`text-lg ${heightTooSmall || 'lg:text-[1.2dvw]'}`}
+              >
                 <MarkdownText>{solutionOverview}</MarkdownText>
               </div>
             )}
             <ul className='space-y-4 pl-6 list-disc'>
               {solutions.map((item, idx) => (
-                <li key={idx} className='text-lg lg:text-[1.175dvw]'>
+                <li
+                  key={idx}
+                  className={`text-lg ${
+                    heightTooSmall || 'lg:text-[1.175dvw]'
+                  }`}
+                >
                   <MarkdownText>{item}</MarkdownText>
                 </li>
               ))}
@@ -344,7 +407,9 @@ export default function ProjectDetail({
           <>
             <div
               id='video-section'
-              className='w-full h-max lg:h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
+              className={`w-full h-max ${
+                heightTooSmall || 'lg:h-[calc(100dvh-72px)]'
+              } flex items-center justify-center overflow-hidden`}
             >
               <div className='w-full {space-y-8}'>
                 <div className='text-center max-w-3xl mx-auto'>
@@ -365,7 +430,9 @@ export default function ProjectDetail({
             </div>
             {/* Hidden Spacer Div */}
             <div
-              className='max-lg:hidden aspect-video rounded-2xl overflow-hidden'
+              className={`max-lg:hidden aspect-video rounded-2xl overflow-hidden ${
+                heightTooSmall && 'hidden'
+              }`}
               style={{
                 opacity: 0,
                 pointerEvents: 'none',
