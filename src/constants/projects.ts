@@ -82,7 +82,7 @@ export const PROJECT_DATA = [
       'Marti combines cloud-native architecture, multi-agent workflows, and fine-grained access control in one platform.',
     solutions: [
       '**Cloud-native microservices architecture**: _Supports scale, resilience, and modular deployment._',
-      '**SaaS platform**: _Fully hosted, ready-to-use via a web dashboard—no infrastructure setup needed._',
+      // '**SaaS platform**: _Fully hosted, ready-to-use via a web dashboard—no infrastructure setup needed._',
       '**Multi-agent workflow engine**: _Routes tasks to the best AI tools or models, combining results intelligently._',
       '**Versatile data ingestion pipeline**: _Processes documents, images, scraped content, Q&A pairs for the knowledge base._',
       '**RBAC (Role-Based Access Control)**: _Fine-grained access for both users and agents._',

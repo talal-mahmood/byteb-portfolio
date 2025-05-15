@@ -216,36 +216,35 @@ const Header = () => {
       {/* Header */}
       <header
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 lg:max-w-[calc(85dvw+1px)] mx-auto transition-all duration-300 ${
           scrolled
             ? 'bg-background/90 backdrop-blur-md shadow-md py-3'
             : 'bg-background py-4'
         }`}
       >
-        <div className='px-2 sm:px-4 lg:px-12 flex items-center justify-between'>
+        <div className='px-2 sm:px-4 lg:px-0 {12} flex items-center justify-between'>
           {/* Logo */}
           <Link href='/' className='flex items-center'>
             <Image
-              width={140}
+              width={120}
               height={40}
               src='/logo-text.png'
               alt='bytebricks'
-              className='h-8 sm:h-10 w-auto lg:h-auto lg:w-[14.27dvw]'
+              className='h-8 sm:h-10 w-auto lg:h-auto lg:w-[12dvw]'
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav
-            className='relative hidden lg:flex items-center space-x-1'
-            ref={navRef}
-          >
-            <div className='flex space-x-1'>
+          <nav className='relative hidden lg:flex items-center' ref={navRef}>
+            <div className='flex text-nowrap gap-x-6'>
               {NAV_ITEMS.map(({ label, hash }, index) => (
                 <Link
                   key={hash}
                   href={hash}
                   onClick={(e) => handleClick(e, hash)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-white/80 lg:text-[1.04dvw] flex items-center gap-2 {activeHash === hash ? 'bg-foreground/10 font-medium' : ''}
+                  className={`{p-2} rounded-lg text-sm font-medium transition-colors hover:text-white/80 lg:text-[1.04dvw] flex items-center gap-2 {activeHash === hash ? 'bg-foreground/10 font-medium' : ''} ${
+                    index === 0 && 'hidden p-0 m-0'
+                  }
                   `}
                 >
                   <div
@@ -269,7 +268,7 @@ const Header = () => {
           </nav>
 
           {/* CTA Button and Mobile Menu */}
-          <div className='flex items-center sm:space-x-4'>
+          <div className='flex items-center'>
             <a
               href='https://calendly.com/muhammad-inam-f0mv/30min'
               className='bg-foreground text-background px-5 py-2 rounded-lg text-sm font-semibold hover:bg-foreground/90 transition-colors whitespace-nowrap'

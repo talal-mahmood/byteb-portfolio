@@ -10,27 +10,34 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const handleLoad = () => {
-      if (lenisRef.current?.lenis) {
-        // Temporarily disable smooth scrolling
-        lenisRef.current.lenis.stop();
+      const checkLenis = () => {
+        const lenis = lenisRef.current?.lenis;
+        if (lenis) {
+          if (window.location.hash) {
+            history.replaceState(
+              null,
+              '',
+              window.location.pathname + window.location.search
+            );
+          }
 
-        // Scroll to top instantly using native scroll
-        window.scrollTo(0, 0);
-
-        // Wait for next tick to ensure scroll is complete
-        requestAnimationFrame(() => {
-          // Mark initialization as complete
-          setIsInitialized(true);
-
-          // Re-enable smooth scrolling
+          lenis.stop();
+          window.scrollTo(0, 0);
+          requestAnimationFrame(() => {
+            setIsInitialized(true);
+            setTimeout(() => lenis.start(), 100);
+          });
+        } else {
+          // Retry after short delay
           setTimeout(() => {
-            lenisRef.current.lenis.start();
-          }, 100);
-        });
-      }
+            setIsInitialized(true); // Proceed anyway
+          }, 200); // Adjust timing if needed
+        }
+      };
+
+      checkLenis();
     };
 
-    // Run initialization
     handleLoad();
     window.addEventListener('load', handleLoad);
 

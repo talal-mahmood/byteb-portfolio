@@ -198,7 +198,7 @@ export default function ProjectDetail({
       </div>
 
       {/* Horizontal timeline for screens below lg */}
-      <div className='absolute top-[calc(100%-16px)] left-1/2 hidden w-[240px] -translate-x-1/2 md:bottom-12 sm:block lg:hidden'>
+      {/* <div className='absolute top-[calc(100%-16px)] left-1/2 hidden w-[240px] -translate-x-1/2 md:bottom-12 sm:block lg:hidden'>
         <div className='relative h-px w-full bg-white/20'>
           {sections.map((_, index) => (
             <div
@@ -214,7 +214,7 @@ export default function ProjectDetail({
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </>
   );
 
@@ -226,7 +226,7 @@ export default function ProjectDetail({
       {/* Left Pinned Sidebar */}
       <div
         ref={sidebarRef}
-        className='sticky top-[63px] w-full lg:w-[40%] xl:w-[35%] px-2 md:px-10 xl:px-20 bg-background/90 backdrop-blur-md lg:bg-transparent z-10 h-max'
+        className='sticky top-[63px] w-full lg:w-[40%] xl:w-[35%] px-2 md:px-10 lg:pl-0 {xl:px-20} bg-background/90 backdrop-blur-md lg:bg-transparent z-10 h-max'
       >
         <div className='lg:max-w-xl space-y-2 lg:space-y-8 flex flex-col items-center justify-center text-center lg:h-[calc(100dvh-64px)] h-max px-4 pt-6 pb-8'>
           <TimelineIndicator />
@@ -253,14 +253,14 @@ export default function ProjectDetail({
       {/* Scrollable Right Content */}
       <div
         ref={contentRef}
-        className='w-full lg:flex-1 px-2 md:px-10 xl:px-20 py-10 lg:py-20 {space-y-20}'
+        className='w-full lg:flex-1 px-2 md:px-10 lg:pr-0 {xl:px-20} py-10 lg:py-20 max-lg:space-y-2'
       >
         {/* Header Visual */}
         <div
           id='header-visual'
-          className='w-full h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
+          className='w-full h-max lg:h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
         >
-          <div className='relative w-full aspect-video rounded-2xl overflow-hidden'>
+          <div className='relative w-full aspect-video rounded-3xl overflow-hidden'>
             <Image
               src='/projects/tutor.jpg'
               alt='Header visual'
@@ -274,7 +274,7 @@ export default function ProjectDetail({
         {/* Problem Section */}
         <div
           id='problem-section'
-          className='w-full h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
+          className='w-full h-max lg:h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
         >
           <div className='bg-foreground text-background rounded-3xl p-8 space-y-6'>
             <h2 className='text-3xl lg:text-[2dvw] font-bold'>
@@ -308,7 +308,7 @@ export default function ProjectDetail({
         {/* Solution Section */}
         <div
           id='solution-section'
-          className='w-full h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
+          className='w-full h-max lg:h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
         >
           <div className='bg-bright-yellow text-background rounded-3xl p-8 space-y-6'>
             <h2 className='text-3xl font-bold lg:text-[2dvw]'>
@@ -344,7 +344,7 @@ export default function ProjectDetail({
           <>
             <div
               id='video-section'
-              className='w-full h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
+              className='w-full h-max lg:h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
             >
               <div className='w-full {space-y-8}'>
                 <div className='text-center max-w-3xl mx-auto'>
@@ -365,7 +365,7 @@ export default function ProjectDetail({
             </div>
             {/* Hidden Spacer Div */}
             <div
-              className='aspect-video rounded-2xl overflow-hidden'
+              className='max-lg:hidden aspect-video rounded-2xl overflow-hidden'
               style={{
                 opacity: 0,
                 pointerEvents: 'none',
