@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import MarkdownText from '../MarkdownText';
 import { useScroll } from '@/contexts/ScrollContext';
+import AudioChat from '../AudioChat';
 
 interface ProjectDetailProps {
   id?: string;
@@ -29,6 +30,7 @@ interface ProjectDetailProps {
 }
 
 export default function ProjectDetail({
+  id,
   title,
   subTitle,
   url,
@@ -59,10 +61,6 @@ export default function ProjectDetail({
     // ...(videoUrl ? ['#video-section'] : []),
   ];
 
-  useEffect(() => {
-    console.log('heightTooSmall: ', heightTooSmall);
-  }, [heightTooSmall]);
-
   useGSAP(
     () => {
       // if (!isInitialized) return;
@@ -72,12 +70,12 @@ export default function ProjectDetail({
 
       mm.add(
         {
-          isDesktop: '(min-width: 1024px) and (max-aspect-ratio: 1999/1000)',
-          isMobile: '(max-width: 1023px), (min-aspect-ratio: 2/1)',
+          isDesktop: '(min-width: 1024px) and (max-aspect-ratio: 1999/849)',
+          isMobile: '(max-width: 1023px), (min-aspect-ratio: 849/1999)',
         },
         (context) => {
           const { isDesktop } = context.conditions!;
-          console.log('isDesktop: ', isDesktop);
+          // console.log('isDesktop: ', isDesktop);
 
           if (isDesktop) {
             setHeightTooSmall(false);
@@ -240,7 +238,7 @@ export default function ProjectDetail({
       {/* Left Pinned Sidebar */}
       <div
         ref={sidebarRef}
-        className={`sticky top-[63px] w-full px-2 md:px-10 {xl:px-20} bg-background/90 backdrop-blur-md ${
+        className={`sticky top-[63px] w-[calc(100%+1px)] px-2 md:px-10 {xl:px-20} bg-background/90 backdrop-blur-md ${
           heightTooSmall || 'xl:w-[35%] lg:w-[40%] lg:pl-0 lg:bg-transparent'
         } z-10 h-max`}
       >
@@ -405,29 +403,39 @@ export default function ProjectDetail({
         {/* Video Section */}
         {videoUrl && (
           <>
-            <div
-              id='video-section'
-              className={`w-full h-max ${
-                heightTooSmall || 'lg:h-[calc(100dvh-72px)]'
-              } flex items-center justify-center overflow-hidden`}
-            >
-              <div className='w-full {space-y-8}'>
-                <div className='text-center max-w-3xl mx-auto'>
-                  {videoOverview && (
-                    <div className='text-xl text-zinc-400'>
-                      <MarkdownText>{videoOverview}</MarkdownText>
+            {id === 'smart-plab-assistant' ? (
+              <AudioChat
+                assistantId={process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID} // Replace with your actual Vapi assistant ID
+                chatTitle='Talk to Robert'
+                chatOverview='Experience our solution firsthand with a live conversation'
+              />
+            ) : (
+              <>
+                <div
+                  id='video-section'
+                  className={`w-full h-max ${
+                    heightTooSmall || 'lg:h-[calc(100dvh-72px)]'
+                  } flex items-center justify-center overflow-hidden`}
+                >
+                  <div className='w-full {space-y-8}'>
+                    <div className='text-center max-w-3xl mx-auto'>
+                      {videoOverview && (
+                        <div className='text-xl text-zinc-400'>
+                          <MarkdownText>{videoOverview}</MarkdownText>
+                        </div>
+                      )}
                     </div>
-                  )}
+                    <div className='aspect-video rounded-2xl overflow-hidden'>
+                      <iframe
+                        className='w-full h-full'
+                        src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className='aspect-video rounded-2xl overflow-hidden'>
-                  <iframe
-                    className='w-full h-full'
-                    src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
-                    allowFullScreen
-                  />
-                </div>
-              </div>
-            </div>
+              </>
+            )}
             {/* Hidden Spacer Div */}
             <div
               className={`max-lg:hidden aspect-video rounded-2xl overflow-hidden ${
