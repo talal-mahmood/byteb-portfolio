@@ -7,7 +7,7 @@ export const PROJECT_DATA = [
     overview:
       'A self learning platform for students to cover their course with the help of an AI assistant.',
     url: 'https://www.myaiconsult.com',
-    imageUrl: '/projects/self-learning-tool.png',
+    imageUrl: '/projects/myai.png',
     videoUrl: '/video/self-learning-tool.mp4',
     videoThumbnail: '/video/self-learning-thumb.jpg',
     problemTitle: 'Why did we build this?',
@@ -37,7 +37,7 @@ export const PROJECT_DATA = [
     overview:
       'A legal research and analysis assistant for understanding contracts and other legal documents.',
     url: 'https://www.unwildered.co.uk/',
-    imageUrl: '/projects/legal-analysis-agent.png',
+    imageUrl: '/projects/caira.png',
     videoUrl: '/video/legal-analysis-agent.mp4',
     videoThumbnail: '/video/legal-analysis-thumb.jpg',
     problemTitle: 'Why did we build this?',
@@ -67,7 +67,7 @@ export const PROJECT_DATA = [
     overview:
       'Marti is a SaaS platform that enables secure, branded AI support embedded in websites and dashboards.',
     url: 'https://askmarti.com',
-    imageUrl: '/projects/agent-builder.png',
+    imageUrl: '/projects/marti.png',
     videoUrl: '/video/agent-builder.mp4',
     videoThumbnail: '/video/agent-builder-thumb.jpg',
     problemTitle: 'Why did we build this?',
@@ -103,7 +103,7 @@ export const PROJECT_DATA = [
     overview:
       'A personal AI-powered expert assistant for architects tackling complex IBC building codes and compliance logic.',
     url: 'https://leandevelopment.us',
-    imageUrl: '/projects/lean-architect.png',
+    imageUrl: '/projects/ibc.png',
     videoUrl: '/video/lean-architect.mp4',
     videoThumbnail: '/video/lean-architect-thumb.jpg',
     problemTitle: 'Why did we build this?',
@@ -135,7 +135,7 @@ export const PROJECT_DATA = [
     overview:
       'An AI-powered simulated patient that provides unlimited practice scenarios and unbiased feedback for PLAB 2 exam preparation.',
     // url: '',
-    imageUrl: '/projects/self-learning-tool.png',
+    imageUrl: '/projects/plab.png',
     videoUrl: '/video/smart-plab-assistant.mp4',
     videoThumbnail: '/video/voice-agent-thumb.jpg',
     problemTitle: 'Why did we build this?',

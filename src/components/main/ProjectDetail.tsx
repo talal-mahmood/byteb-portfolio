@@ -297,13 +297,13 @@ export default function ProjectDetail({
             heightTooSmall || 'lg:h-[calc(100dvh-72px)]'
           } flex items-center justify-center overflow-hidden`}
         >
-          <div className='relative w-full aspect-video rounded-3xl overflow-hidden'>
+          <div className='relative w-full !min-h-max  rounded-3xl overflow-hidden'>
             <Image
               src={imageUrl!}
               alt='Header visual'
               width={1000}
               height={1000}
-              className='w-full'
+              className='max-w-full max-h-full'
             />
           </div>
         </div>
