@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Mic, PhoneOff } from 'lucide-react';
 import { useVapi } from '@/hooks/useVapi';
 import MarkdownText from './MarkdownText';
 import BrickVisualizer from './AudioVisualizer';
@@ -39,7 +38,7 @@ export default function AudioChat({
   });
 
   // Initialize Vapi hook
-  const { startCall, stopCall, callState } = useVapi();
+  const { startCall, stopCall } = useVapi();
 
   // Set up audio processing
   useEffect(() => {

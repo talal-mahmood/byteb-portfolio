@@ -9,11 +9,9 @@ export default function MarkdownText({ children }: { children: string }) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          strong: ({ node, ...props }) => (
-            <strong className='font-bold' {...props} />
-          ),
-          em: ({ node, ...props }) => <em className='italic' {...props} />,
-          ul: ({ node, ...props }) => (
+          strong: ({ ...props }) => <strong className='font-bold' {...props} />,
+          em: ({ ...props }) => <em className='italic' {...props} />,
+          ul: ({ ...props }) => (
             <ul className='list-disc pl-6 space-y-2' {...props} />
           ),
         }}

@@ -1,6 +1,6 @@
 'use client';
 import { useRef } from 'react';
-import { Mic, PhoneOff } from 'lucide-react';
+import { Mic } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useVapi } from '@/hooks/useVapi';

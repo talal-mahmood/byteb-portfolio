@@ -17,7 +17,7 @@ export const useVapi = () => {
     'idle'
   );
   const [isMicOn, setIsMicOn] = useState(false);
-  const [transcript, setTranscript] = useState('');
+  // const [transcript, setTranscript] = useState('');
   const configRef = useRef<VapiConfig>({});
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export const useVapi = () => {
     toggleMic,
     callState,
     isMicOn,
-    transcript,
+    // transcript,
     isActive: callState === 'active',
     isLoading: callState === 'loading',
   };

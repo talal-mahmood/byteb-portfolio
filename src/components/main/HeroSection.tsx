@@ -24,7 +24,7 @@ export function HeroSection() {
           isSm: '(max-width: 500px)',
         },
         (context: gsap.Context) => {
-          const { isSm, isDesktop, isMobile } = context.conditions!;
+          const { isDesktop, isMobile } = context.conditions!;
 
           // your intro tween
           gsap

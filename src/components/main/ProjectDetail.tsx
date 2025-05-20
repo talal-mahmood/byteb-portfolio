@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { Link2 } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
