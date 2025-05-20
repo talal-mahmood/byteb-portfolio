@@ -19,6 +19,7 @@ const Home = () => {
             subTitle={entry.subTitle}
             overview={entry.overview}
             url={entry.url}
+            imageUrl={entry.imageUrl}
             videoUrl={entry.videoUrl}
             problems={entry.problems}
             // problemImage={entry.problemImage || ''}

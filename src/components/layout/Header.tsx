@@ -18,7 +18,7 @@ const NAV_ITEMS = [
   { label: 'Self Learning Tool', hash: '#self-learning-tool' },
   { label: 'Legal Analysis Agent', hash: '#legal-analysis-agent' },
   { label: 'Agent Builder', hash: '#agent-builder' },
-  { label: 'Lead Intelligence', hash: '#lead-intelligence' },
+  { label: 'Lean Architect', hash: '#lean-architect' },
   { label: 'Smart PLAB Assistant', hash: '#smart-plab-assistant' },
   // { label: '', hash: '#footer-section' },
 ];

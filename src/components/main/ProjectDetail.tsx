@@ -16,6 +16,7 @@ interface ProjectDetailProps {
   subTitle: string;
   overview?: string;
   url?: string;
+  imageUrl?: string;
   problemTitle?: string;
   problemOverview?: string;
   problems?: string[];
@@ -34,6 +35,7 @@ export default function ProjectDetail({
   title,
   subTitle,
   url,
+  imageUrl,
   problemTitle = 'Problem',
   problemOverview,
   problems = [],
@@ -297,7 +299,7 @@ export default function ProjectDetail({
         >
           <div className='relative w-full aspect-video rounded-3xl overflow-hidden'>
             <Image
-              src='/projects/tutor.jpg'
+              src={imageUrl!}
               alt='Header visual'
               width={1000}
               height={1000}
@@ -426,11 +428,22 @@ export default function ProjectDetail({
                       )}
                     </div>
                     <div className='aspect-video rounded-2xl overflow-hidden'>
-                      <iframe
-                        className='w-full h-full'
-                        src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
-                        allowFullScreen
-                      />
+                      {id === 'lean-architect' ? (
+                        <video
+                          className='w-full h-full'
+                          src={videoUrl}
+                          controls
+                          playsInline
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <iframe
+                          className='w-full h-full'
+                          src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
+                          allowFullScreen
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

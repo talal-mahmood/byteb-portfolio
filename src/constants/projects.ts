@@ -7,7 +7,8 @@ export const PROJECT_DATA = [
     overview:
       'A self learning platform for students to cover their course with the help of an AI assistant.',
     url: 'https://www.myaiconsult.com',
-    videoUrl: '/video/self-learning-tool',
+    imageUrl: '/projects/self-learning-tool.png',
+    videoUrl: '/video/self-learning-tool.mp4',
     videoThumbnail: '/video/self-learning-thumb.jpg',
     problemTitle: 'Why did we build this?',
     problemOverview:
@@ -36,7 +37,8 @@ export const PROJECT_DATA = [
     overview:
       'A legal research and analysis assistant for understanding contracts and other legal documents.',
     url: 'https://www.unwildered.co.uk/',
-    videoUrl: '/video/legal-analysis-agent',
+    imageUrl: '/projects/legal-analysis-agent.png',
+    videoUrl: '/video/legal-analysis-agent.mp4',
     videoThumbnail: '/video/legal-analysis-thumb.jpg',
     problemTitle: 'Why did we build this?',
     problemOverview:
@@ -65,7 +67,8 @@ export const PROJECT_DATA = [
     overview:
       'Marti is a SaaS platform that enables secure, branded AI support embedded in websites and dashboards.',
     url: 'https://askmarti.com',
-    videoUrl: '/video/agent-builder',
+    imageUrl: '/projects/agent-builder.png',
+    videoUrl: '/video/agent-builder.mp4',
     videoThumbnail: '/video/agent-builder-thumb.jpg',
     problemTitle: 'Why did we build this?',
     problemOverview:
@@ -93,15 +96,16 @@ export const PROJECT_DATA = [
     solutionImage: '/projects/martisolution.jpg',
   },
   {
-    id: 'lead-intelligence',
+    id: 'lean-architect',
     title: 'IBC Compliance AI Assistant',
     subTitle:
       'Architect-focused AI that navigates International Building Code rules instantly',
     overview:
       'A personal AI-powered expert assistant for architects tackling complex IBC building codes and compliance logic.',
     url: 'https://leandevelopment.us',
-    videoUrl: '/video/lead-intelligence',
-    videoThumbnail: '/video/lead-intelligence-thumb.jpg',
+    imageUrl: '/projects/lean-architect.png',
+    videoUrl: '/video/lean-architect.mp4',
+    videoThumbnail: '/video/lean-architect-thumb.jpg',
     problemTitle: 'Why did we build this?',
     problemOverview:
       'Architects spend excessive time interpreting codebooks and are prone to costly compliance errors.',
@@ -127,27 +131,28 @@ export const PROJECT_DATA = [
   {
     id: 'smart-plab-assistant',
     title: 'Voice Agent',
-    subTitle: 'Voice-enabled AI assistant for hands-free workflows',
+    subTitle: '24/7 OSCE communication practice partner for medical students',
     overview:
-      'A voice interface layer on top of AI services, enabling natural-language queries and responses integrated into any app.',
-    url: '#',
-    videoUrl: '/video/smart-plab-assistant',
+      'An AI-powered simulated patient that provides unlimited practice scenarios and unbiased feedback for PLAB 2 exam preparation.',
+    // url: '',
+    imageUrl: '/projects/self-learning-tool.png',
+    videoUrl: '/video/smart-plab-assistant.mp4',
     videoThumbnail: '/video/voice-agent-thumb.jpg',
     problemTitle: 'Why did we build this?',
     problemOverview:
-      'Hands-free access and seamless voice integration were essential for accessibility, UX, and productivity.',
+      'Current OSCE preparation methods create significant barriers for medical students and institutions.',
     problems: [
-      '**Hands-busy**: _Users need voice control when multitasking or for accessibility._',
-      '**UI fragmentation**: _Switching between voice and text disrupts workflow._',
-      '**Integration friction**: _Most voice SDKs are hard to implement and configure._',
+      '**Limited practice opportunities**: Students are dependent on other people to practice communication skills which are assessed in OSCEs (PLAB 2). This can be quite limiting as skill levels and timetables are often mismatched, making it difficult to adequately practice.',
+      '**Costly resources**:  Universities are dependent on hiring paid actors to provide simulated scenarios for students to practice with in the classroom setting. Such actors are expensive for universities, and also too few to satisfy the needs of all the students.',
+      '**Subjective feedback**: Feedback from peers, actors and teachers is prone to bias and is often flawed. The grading is anchored to the level of the assessor (i.e. feedback from fellow students often leaves out important areas that need to be worked on).',
     ],
     solutionTitle: 'How did we build this?',
     solutionOverview:
       'A lightweight, privacy-first voice SDK seamlessly falling back to text.',
     solutions: [
-      '**Plug-and-play SDK**: _Quickly adds voice capability to any app._',
-      '**Unified multimodal engine**: _Handles smooth transitions between voice and text._',
-      '**Wake-word detection and secure audio pipeline**: _Enables privacy-first voice interactions._',
+      '**On-demand practice**: Students can now practice their communication skills at any time, on their own, in a stress-free environment. They can use our assistant at any time to target their learning needs anywhere, anytime.',
+      '**Cost-effective scaling**: Our assistant costs a fraction of the price of a paid actor and provides hundreds of scenarios for students.',
+      '**Objective assessment**: The feedback system in our assistant provides input on objective and subjective components alike and mitigates any biases. It is able to identify specific successes and flaws, while providing actionable advice going forward. The marking criteria is anchored to the expected level of the student to ensure it is fair at all times.',
     ],
     problemImage: '/projects/voiceagentproblem.jpg',
     solutionImage: '/projects/voiceagentsolution.jpg',
