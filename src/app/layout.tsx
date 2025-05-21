@@ -6,7 +6,7 @@ import {
 import './globals.css';
 import Layout from '@/components/Layout';
 import SmoothScroll from '@/components/SmoothScroll';
-import Head from 'next/head';
+// import Head from 'next/head';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
