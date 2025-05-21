@@ -24,8 +24,36 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 // });
 
 export const metadata: Metadata = {
-  title: 'Portfolio',
-  description: 'To Showcase Our Projects',
+  title: 'Bytebricks | Portfolio',
+  description: `AI.
+Made Ethical.
+Designed Beautifully.
+Delivered Smartly.
+From chatbots to automation and on-premise models, we craft AI that fits your business, protects your data, and accelerates your growth—with ethics and experience at the core.`,
+  metadataBase: new URL('https://byteb.io/portfolio'),
+  alternates: {
+    canonical: 'https://byteb.io/portfolio',
+  },
+  openGraph: {
+    title: 'Bytebricks | Portfolio',
+    description: `AI.
+Made Ethical.
+Designed Beautifully.
+Delivered Smartly.
+From chatbots to automation and on-premise models, we craft AI that fits your business, protects your data, and accelerates your growth—with ethics and experience at the core.`,
+    url: 'https://byteb.io/portfolio',
+    siteName: 'Bytebricks | Portfolio',
+    images: [
+      {
+        url: '/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Bytebricks - Generative AI Solutions & Development Services',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
