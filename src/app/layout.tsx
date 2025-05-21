@@ -6,6 +6,7 @@ import {
 import './globals.css';
 import Layout from '@/components/Layout';
 import SmoothScroll from '@/components/SmoothScroll';
+import Head from 'next/head';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -54,6 +55,9 @@ From chatbots to automation and on-premise models, we craft AI that fits your bu
     locale: 'en_US',
     type: 'website',
   },
+  icons: {
+    icon: [{ url: '/portfolio/favicon.png' }],
+  },
 };
 
 export default function RootLayout({
@@ -63,6 +67,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className='scroll-smooth h-full w-full'>
+      {/* <Head>
+        <link rel='icon' href='/portfolio/logo.png' />
+      </Head> */}
       <SmoothScroll>
         <body
           className={`${plusJakartaSans.variable} {geistSans.variable} {geistMono.variable} antialiased`}
