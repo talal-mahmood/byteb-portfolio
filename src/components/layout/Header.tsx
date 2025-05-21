@@ -158,7 +158,7 @@ const Header = () => {
           <Image
             width={120}
             height={40}
-            src='/logo-text.png'
+            src='/portfolio/logo-text.png'
             alt='bytebricks'
             className='h-10 w-auto'
           />
@@ -228,7 +228,7 @@ const Header = () => {
             <Image
               width={120}
               height={40}
-              src='/logo-text.png'
+              src='/portfolio/logo-text.png'
               alt='bytebricks'
               className='h-8 sm:h-10 w-auto lg:h-auto lg:w-[12dvw]'
             />
