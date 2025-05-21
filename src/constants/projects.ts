@@ -104,7 +104,7 @@ export const PROJECT_DATA = [
       'A personal AI-powered expert assistant for architects tackling complex IBC building codes and compliance logic.',
     url: 'https://leandevelopment.us',
     imageUrl: '/portfolio/projects/ibc.png',
-    videoUrl: '/video/lean-architect.mp4',
+    videoUrl: '/portfolio/video/lean-architect.mp4',
     videoThumbnail: '/video/lean-architect-thumb.jpg',
     problemTitle: 'Why did we build this?',
     problemOverview:
