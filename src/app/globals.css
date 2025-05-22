@@ -70,3 +70,8 @@ html.lenis body {
   animation: spin 1s linear infinite;
   border-top-color: #eaf337; /* Your accent color */
 }
+
+[data-gsap-section] {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}

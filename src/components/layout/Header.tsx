@@ -49,15 +49,16 @@ const Header = () => {
     () => {
       if (!navRef.current) return;
 
-      // grab your sections
+      // Grab your sections
       sections.current = NAV_ITEMS.map(
         ({ hash }) => document.querySelector(hash) as HTMLElement
       ).filter(Boolean);
 
-      // create a matchMedia context
+      // Create a matchMedia context
       const mm = gsap.matchMedia();
+
       mm.add('(min-width: 1024px)', () => {
-        // desktop: width ≥ 1024px
+        // Desktop: width ≥ 1024px
         sections.current.forEach((section, i) => {
           ScrollTrigger.create({
             trigger: section,
@@ -70,7 +71,7 @@ const Header = () => {
       });
 
       mm.add('(max-width: 1023px)', () => {
-        // mobile: width < 1024px
+        // Mobile: width < 1024px
         sections.current.forEach((section, i) => {
           ScrollTrigger.create({
             trigger: section,
@@ -82,8 +83,8 @@ const Header = () => {
         });
       });
 
-      // // cleanup on unmount
-      // return () => mm.revert();
+      // Cleanup on unmount
+      return () => mm.revert();
     },
     { scope: headerRef }
   );
@@ -161,6 +162,7 @@ const Header = () => {
             src='/portfolio/logo-text.png'
             alt='bytebricks'
             className='h-10 w-auto'
+            priority
           />
           <button
             onClick={toggleDrawer}
@@ -231,6 +233,7 @@ const Header = () => {
               src='/portfolio/logo-text.png'
               alt='bytebricks'
               className='h-8 sm:h-10 w-auto lg:h-auto lg:w-[12dvw]'
+              priority
             />
           </Link>
 

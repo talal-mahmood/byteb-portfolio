@@ -63,10 +63,9 @@ export default function ProjectDetail({
     // ...(videoUrl ? ['#video-section'] : []),
   ];
 
+  // ProjectDetail.tsx corrected useGSAP block
   useGSAP(
     () => {
-      // if (!isInitialized) return;
-
       gsap.registerPlugin(ScrollTrigger);
       const mm = gsap.matchMedia();
 
@@ -77,11 +76,18 @@ export default function ProjectDetail({
         },
         (context) => {
           const { isDesktop } = context.conditions!;
-          // console.log('isDesktop: ', isDesktop);
+
+          const sectionElements = gsap.utils.toArray([
+            '#header-visual',
+            '#problem-section',
+            '#solution-section',
+            ...(videoUrl ? ['#video-section'] : []),
+          ]) as HTMLElement[];
 
           if (isDesktop) {
             setHeightTooSmall(false);
-            // Only run desktop animations on large screens
+
+            // Restore original pin configuration
             ScrollTrigger.create({
               trigger: sectionRef.current,
               start: 'top top',
@@ -91,22 +97,21 @@ export default function ProjectDetail({
               anticipatePin: 1,
             });
 
-            const sections = gsap.utils.toArray([
-              '#header-visual',
-              '#problem-section',
-              '#solution-section',
-              ...(videoUrl ? ['#video-section'] : []),
-            ]) as HTMLElement[];
-
-            gsap.set(sections, { autoAlpha: 0, y: 50 });
+            // Preserve original setup with optimizations
+            gsap.set(sectionElements, {
+              autoAlpha: 0,
+              y: 50,
+              willChange: 'transform, opacity',
+            });
 
             let totalHeight = 0;
             const sectionHeights: number[] = [];
 
-            sections.forEach((section) => {
+            sectionElements.forEach((section) => {
               const height = section.offsetHeight;
               sectionHeights.push(height);
               totalHeight += height;
+              ``;
             });
 
             const tl = gsap.timeline({
@@ -118,15 +123,20 @@ export default function ProjectDetail({
                 pin: contentRef.current!,
                 anticipatePin: 1,
                 onRefresh: () => {
-                  totalHeight = sections.reduce(
+                  totalHeight = sectionElements.reduce(
                     (sum, section) => sum + section.offsetHeight,
                     0
                   );
                 },
               },
+              defaults: {
+                ease: 'power2.out',
+                force3D: true,
+              },
             });
 
-            sections.forEach((section, i) => {
+            // Restore original animation sequence with optimizations
+            sectionElements.forEach((section, i) => {
               tl.fromTo(
                 section,
                 { y: 100 },
@@ -137,7 +147,7 @@ export default function ProjectDetail({
                   ease: 'power2.out',
                 }
               )
-                .to(section, { duration: 1 })
+                .to(section, { duration: 0.25 })
                 .to(section, {
                   autoAlpha: 0,
                   y: -50,
@@ -155,9 +165,10 @@ export default function ProjectDetail({
                 );
             });
 
-            sections.forEach((section, index) => {
+            // Restore section activation tracking
+            sectionElements.forEach((section, index) => {
               ScrollTrigger.create({
-                trigger: `#${section.id}`,
+                trigger: section,
                 start: 'top center',
                 end: 'bottom center',
                 onToggle: (self) => self.isActive && setActiveSection(index),
@@ -165,16 +176,7 @@ export default function ProjectDetail({
             });
           } else {
             setHeightTooSmall(true);
-            // Mobile styles reset
-            gsap.set(
-              [
-                '#header-visual',
-                '#problem-section',
-                '#solution-section',
-                ...(videoUrl ? ['#video-section'] : []),
-              ],
-              { clearProps: 'all' }
-            );
+            gsap.set(sectionElements, { clearProps: 'all' });
           }
         }
       );
@@ -293,6 +295,7 @@ export default function ProjectDetail({
         {/* Header Visual */}
         <div
           id='header-visual'
+          data-gsap-section
           className={`w-full h-max ${
             heightTooSmall || 'lg:h-[calc(100dvh-72px)]'
           } flex items-center justify-center overflow-hidden`}
@@ -311,6 +314,7 @@ export default function ProjectDetail({
         {/* Problem Section */}
         <div
           id='problem-section'
+          data-gsap-section
           className={`w-full h-max ${
             heightTooSmall || 'lg:h-[calc(100dvh-72px)] w-full'
           } flex items-center justify-center overflow-hidden`}
@@ -358,6 +362,7 @@ export default function ProjectDetail({
         {/* Solution Section */}
         <div
           id='solution-section'
+          data-gsap-section
           className={`w-full h-max ${
             heightTooSmall || 'lg:h-[calc(100dvh-72px)] w-full'
           } flex items-center justify-center overflow-hidden`}
@@ -415,6 +420,7 @@ export default function ProjectDetail({
               <>
                 <div
                   id='video-section'
+                  data-gsap-section
                   className={`w-full h-max ${
                     heightTooSmall || 'lg:h-[calc(100dvh-72px)]'
                   } flex items-center justify-center overflow-hidden`}
