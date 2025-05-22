@@ -111,7 +111,6 @@ export default function ProjectDetail({
               const height = section.offsetHeight;
               sectionHeights.push(height);
               totalHeight += height;
-              ``;
             });
 
             const tl = gsap.timeline({
