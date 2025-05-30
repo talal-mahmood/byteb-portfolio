@@ -8,7 +8,7 @@ export const PROJECT_DATA = [
       'A self learning platform for students to cover their course with the help of an AI assistant.',
     url: 'https://www.myaiconsult.com',
     imageUrl: '/portfolio/projects/myai.png',
-    videoUrl: '/video/self-learning-tool.mp4',
+    videoUrl: '/portfolio/video/self-learning-tool.mp4',
     videoThumbnail: '/video/self-learning-thumb.jpg',
     problemTitle: 'Why did we build this?',
     problemOverview:
