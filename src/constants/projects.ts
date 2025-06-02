@@ -38,7 +38,7 @@ export const PROJECT_DATA = [
       'A legal research and analysis assistant for understanding contracts and other legal documents.',
     url: 'https://www.unwildered.co.uk/',
     imageUrl: '/portfolio/projects/caira.png',
-    videoUrl: '/video/legal-analysis-agent.mp4',
+    videoUrl: '/portfolio/video/legal-assistant.mp4',
     videoThumbnail: '/video/legal-analysis-thumb.jpg',
     problemTitle: 'Why did we build this?',
     problemOverview:
@@ -68,7 +68,7 @@ export const PROJECT_DATA = [
       'Marti is a SaaS platform that enables secure, branded AI support embedded in websites and dashboards.',
     url: 'https://askmarti.com',
     imageUrl: '/portfolio/projects/marti.png',
-    videoUrl: '/video/agent-builder.mp4',
+    videoUrl: '/portfolio/video/agent-builder.mp4',
     videoThumbnail: '/video/agent-builder-thumb.jpg',
     problemTitle: 'Why did we build this?',
     problemOverview:

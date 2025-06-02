@@ -433,8 +433,7 @@ export default function ProjectDetail({
                       )}
                     </div>
                     <div className='aspect-video rounded-2xl overflow-hidden'>
-                      {id === 'lean-architect' ||
-                      id === 'self-learning-tool' ? (
+                      {true ? (
                         <video
                           className='w-full h-full'
                           src={videoUrl}
