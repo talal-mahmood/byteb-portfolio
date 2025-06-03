@@ -6,7 +6,7 @@ import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLenis } from 'lenis/react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, ExternalLink } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
@@ -156,14 +156,17 @@ const Header = () => {
         style={{ display: 'none' }}
       >
         <div className='flex justify-between items-center p-6 border-b border-border/20'>
-          <Image
+          {/* <Image
             width={120}
             height={40}
             src='/portfolio/logo-text.png'
             alt='bytebricks'
             className='h-10 w-auto'
-            priority
-          />
+            // priority
+          /> */}
+          <span className='text-3xl sm:text-4xl font-[700] text-white logo'>
+            bytebricks
+          </span>
           <button
             onClick={toggleDrawer}
             className='p-2 rounded-full hover:bg-foreground/10 transition-colors'
@@ -227,14 +230,17 @@ const Header = () => {
         <div className='px-2 sm:px-4 lg:px-0 {12} flex items-center justify-between'>
           {/* Logo */}
           <Link href='/' className='flex items-center'>
-            <Image
+            {/* <Image
               width={120}
               height={40}
               src='/portfolio/logo-text.png'
               alt='bytebricks'
               className='h-8 sm:h-10 w-auto lg:h-auto lg:w-[12dvw]'
-              priority
-            />
+              // priority
+            /> */}
+            <span className='text-3xl sm:text-4xl font-[700] text-white logo'>
+              bytebricks
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

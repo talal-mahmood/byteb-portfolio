@@ -3,6 +3,7 @@ import {
   // Geist, Geist_Mono,
   Plus_Jakarta_Sans,
 } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import Layout from '@/components/Layout';
 import SmoothScroll from '@/components/SmoothScroll';
@@ -14,15 +15,36 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   variable: '--font-plus-jakarta-sans',
 });
 
-// const geistSans = Geist({
-//   variable: '--font-geist-sans',
-//   subsets: ['latin'],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: '--font-geist-mono',
-//   subsets: ['latin'],
-// });
+const crosstenSoft = localFont({
+  src: [
+    {
+      path: '../fonts/CrosstenSoft Black.otf',
+      style: 'black',
+      weight: '900',
+    },
+    {
+      path: '../fonts/CrosstenSoft Bold.otf',
+      style: 'normal',
+      weight: '700',
+    },
+    {
+      path: '../fonts/CrosstenSoft Medium.otf',
+      style: 'medium',
+      weight: '500',
+    },
+    {
+      path: '../fonts/CrosstenSoft Light.otf',
+      style: 'light',
+      weight: '300',
+    },
+    {
+      path: '../fonts/CrosstenSoft Thin.otf',
+      style: 'thin',
+      weight: '100',
+    },
+  ],
+  variable: '--font-crossten-soft',
+});
 
 export const metadata: Metadata = {
   title: 'Bytebricks | Portfolio',
@@ -72,7 +94,7 @@ export default function RootLayout({
       </Head> */}
       <SmoothScroll>
         <body
-          className={`${plusJakartaSans.variable} {geistSans.variable} {geistMono.variable} antialiased`}
+          className={`${plusJakartaSans.variable} ${crosstenSoft.variable} {geistSans.variable} {geistMono.variable} antialiased`}
         >
           <Layout showSidebar={false}>{children}</Layout>
         </body>
