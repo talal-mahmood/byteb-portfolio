@@ -62,8 +62,8 @@ const Header = () => {
         sections.current.forEach((section, i) => {
           ScrollTrigger.create({
             trigger: section,
-            start: 'bottom top+=200%',
-            end: 'top bottom+=200%',
+            start: 'bottom top+=50%',
+            end: 'top bottom-=50%',
             onEnter: () => setActiveHash(NAV_ITEMS[i]?.hash || ''),
             onEnterBack: () => setActiveHash(NAV_ITEMS[i - 1]?.hash || ''),
           });
@@ -75,8 +75,8 @@ const Header = () => {
         sections.current.forEach((section, i) => {
           ScrollTrigger.create({
             trigger: section,
-            start: 'bottom top+=200%',
-            end: 'top bottom+=200%',
+            start: 'bottom top+=50%',
+            end: 'top bottom+=50%',
             onEnter: () => setActiveHash(NAV_ITEMS[i]?.hash || ''),
             onEnterBack: () => setActiveHash(NAV_ITEMS[i - 1]?.hash || ''),
           });
