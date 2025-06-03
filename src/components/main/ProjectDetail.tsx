@@ -50,6 +50,7 @@ export default function ProjectDetail({
 
   // Function to handle video play
   const handlePlay = () => {
+    console.log(isPlaying);
     // Pause all other videos on the page
     const allVideos = document.querySelectorAll('video');
     allVideos.forEach((video) => {
