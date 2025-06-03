@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { Link2 } from 'lucide-react';
 import MarkdownText from '../MarkdownText';
@@ -45,7 +45,25 @@ export default function ProjectDetail({
   videoOverview,
 }: ProjectDetailProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  // const contentRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // Function to handle video play
+  const handlePlay = () => {
+    // Pause all other videos on the page
+    const allVideos = document.querySelectorAll('video');
+    allVideos.forEach((video) => {
+      if (video !== videoRef.current) {
+        video.pause();
+      }
+    });
+    setIsPlaying(true);
+  };
+
+  // Function to handle video pause
+  const handlePause = () => {
+    setIsPlaying(false);
+  };
 
   return (
     <section
@@ -171,10 +189,13 @@ export default function ProjectDetail({
                 <div className='aspect-[20/9] rounded-2xl overflow-hidden'>
                   {true ? (
                     <video
+                      ref={videoRef}
                       className='w-full h-full'
                       src={videoUrl}
                       controls
                       playsInline
+                      onPlay={handlePlay}
+                      onPause={handlePause}
                     >
                       Your browser does not support the video tag.
                     </video>
