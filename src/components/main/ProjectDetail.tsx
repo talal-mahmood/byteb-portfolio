@@ -1,13 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
 import { Link2 } from 'lucide-react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
 import MarkdownText from '../MarkdownText';
-import { useScroll } from '@/contexts/ScrollContext';
 import AudioChat from '../AudioChat';
 
 interface ProjectDetailProps {
@@ -34,7 +30,7 @@ export default function ProjectDetail({
   id,
   title,
   subTitle,
-  overview,
+  // overview,
   url,
   imageUrl,
   problemTitle = 'Problem',
