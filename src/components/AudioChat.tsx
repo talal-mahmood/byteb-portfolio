@@ -195,8 +195,8 @@ export default function AudioChat({
 
           <div className='flex flex-col {md:flex-row} items-center justify-between gap-6 relative z-10'>
             {/* Left side: Explanation */}
-            <div className='text-left space-y-3'>
-              <div className='text-zinc-400'>
+            <div className='text-center space-y-3'>
+              <div className='text-zinc-400 text-[1.5dvw]'>
                 <MarkdownText>{chatOverview}</MarkdownText>
               </div>
 
