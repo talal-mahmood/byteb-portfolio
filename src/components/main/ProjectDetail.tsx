@@ -22,6 +22,7 @@ interface ProjectDetailProps {
   problemImage?: string;
   solutionImage?: string;
   videoUrl?: string;
+  videoThumbnail?: string;
   videoTitle?: string;
   videoOverview?: string;
 }
@@ -42,6 +43,7 @@ export default function ProjectDetail({
   problemImage,
   solutionImage,
   videoUrl,
+  videoThumbnail,
   videoOverview,
 }: ProjectDetailProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -87,10 +89,10 @@ export default function ProjectDetail({
 
         {/* Small Heading */}
         <div className='px-2 md:px-0 lg:w-1/3 space-y-1 lg:space-y-4 max-lg:text-center'>
-          <h1 className='text-[3.5dvw] leading-none font-semibold'>
+          <h1 className='text-3xl sm:text-[3.5dvw] leading-none font-semibold'>
             <MarkdownText>{title}</MarkdownText>
           </h1>
-          <div className='text-zinc-400 text-[1.8dvw]'>
+          <div className='text-zinc-400 text-lg sm:text-[1.8dvw]'>
             <MarkdownText>{subTitle}</MarkdownText>
           </div>
           {url && (
@@ -98,7 +100,7 @@ export default function ProjectDetail({
               href={url}
               target='_blank'
               rel='noopener noreferrer'
-              className='inline-flex items-center gap-2 bg-white/10 rounded-full py-1 px-2 lg:py-2 lg:px-4 hover:bg-white/20 transition-colors lg:mt-4 text-[1.5dvw]'
+              className='inline-flex items-center gap-2 bg-white/10 rounded-full py-1 px-2 lg:py-2 lg:px-4 hover:bg-white/20 transition-colors lg:mt-4 text-sm sm:text-[1.5dvw]'
             >
               <Link2 className='w-5 h-5' />
               Visit Project
@@ -179,7 +181,7 @@ export default function ProjectDetail({
             />
           ) : (
             <div className='px-2 md:px-0 lg:h-[calc(100dvh-64px)] flex items-center'>
-              <div className='mx-auto'>
+              <div className='mx-auto min-w-full min-h-full'>
                 <div className='text-center mb-8'>
                   {videoOverview && (
                     <div className='text-xl text-zinc-400'>
@@ -187,26 +189,20 @@ export default function ProjectDetail({
                     </div>
                   )}
                 </div>
-                <div className='aspect-[20/9] rounded-2xl overflow-hidden'>
-                  {true ? (
-                    <video
-                      ref={videoRef}
-                      className='w-full h-full'
-                      src={videoUrl}
-                      controls
-                      playsInline
-                      onPlay={handlePlay}
-                      onPause={handlePause}
-                    >
-                      Your browser does not support the video tag.
-                    </video>
-                  ) : (
-                    <iframe
-                      className='w-full h-full'
-                      src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
-                      allowFullScreen
-                    />
-                  )}
+                <div className='aspect-[20/9] rounded-2xl overflow-hidden min-w-full min-h-full'>
+                  <video
+                    ref={videoRef}
+                    className='w-full h-full'
+                    src={videoUrl}
+                    poster={videoThumbnail}
+                    controls
+                    playsInline
+                    preload='none'
+                    onPlay={handlePlay}
+                    onPause={handlePause}
+                  >
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
               </div>
             </div>

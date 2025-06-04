@@ -9,7 +9,7 @@ export const PROJECT_DATA = [
     url: 'https://www.myaiconsult.com',
     imageUrl: '/portfolio/projects/myai.png',
     videoUrl: '/portfolio/video/self-learning-tool.mp4',
-    videoThumbnail: '/video/self-learning-thumb.jpg',
+    videoThumbnail: '/portfolio/video/self-learning-thumb.png',
     problemTitle: 'Why did we build this?',
     problemOverview:
       'Over reliance on AI, lack of curriculum context, and uncertain practice material quality were making students less effective in their studies.',
@@ -39,7 +39,7 @@ export const PROJECT_DATA = [
     url: 'https://www.unwildered.co.uk/',
     imageUrl: '/portfolio/projects/caira.png',
     videoUrl: '/portfolio/video/legal-assistant.mp4',
-    videoThumbnail: '/video/legal-analysis-thumb.jpg',
+    videoThumbnail: '/portfolio/video/legal-analysis-thumb.png',
     problemTitle: 'Why did we build this?',
     problemOverview:
       'The legal sector suffers from scattered information and slow document analysis, which hinders decision making.',
@@ -69,7 +69,7 @@ export const PROJECT_DATA = [
     url: 'https://askmarti.com',
     imageUrl: '/portfolio/projects/marti.png',
     videoUrl: '/portfolio/video/agent-builder.mp4',
-    videoThumbnail: '/video/agent-builder-thumb.jpg',
+    videoThumbnail: '/portfolio/video/agent-builder-thumb.png',
     problemTitle: 'Why did we build this?',
     problemOverview:
       'Manual support is slow, inconsistent, and costly—scaling it without control or automation is inefficient.',
@@ -105,7 +105,7 @@ export const PROJECT_DATA = [
     url: 'https://leandevelopment.us',
     imageUrl: '/portfolio/projects/ibc.png',
     videoUrl: '/portfolio/video/lean-architect.mp4',
-    videoThumbnail: '/video/lean-architect-thumb.jpg',
+    videoThumbnail: '/portfolio/video/lean-architect-thumb.png',
     problemTitle: 'Why did we build this?',
     problemOverview:
       'Architects spend excessive time interpreting codebooks and are prone to costly compliance errors.',

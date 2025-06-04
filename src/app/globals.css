@@ -76,3 +76,9 @@ html.lenis body {
 .logo {
   font-family: var(--font-crossten-soft);
 }
+
+video {
+  filter: none;
+  position: relative;
+  will-change: auto;
+}

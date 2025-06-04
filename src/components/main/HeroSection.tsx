@@ -13,7 +13,7 @@ export function HeroSection() {
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // 1. Create matchMedia (no generics needed if you only read these two flags)
+      // Create matchMedia context
       const mm = gsap.matchMedia();
 
       mm.add(
@@ -25,6 +25,9 @@ export function HeroSection() {
         },
         (context: gsap.Context) => {
           const { isDesktop, isMobile } = context.conditions!;
+
+          // Only run animations on desktop
+          if (isMobile) return;
 
           // your intro tween
           gsap
@@ -98,7 +101,7 @@ export function HeroSection() {
         </h1>
         <p
           id='tagline'
-          className='mb-4 text-md sm:text-lg font-semibold bg-foreground text-background rounded-full py-1 px-2 w-max flex justify-center'
+          className='mb-4 text-[3.36dvw] sm:text-lg font-semibold bg-foreground text-background rounded-full py-1 px-2 w-max flex justify-center'
         >
           <span id='part-1' className='part text-nowrap'>
             AI.{' '}

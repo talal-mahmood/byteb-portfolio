@@ -25,78 +25,78 @@ export default function CallButton({
 
   useGSAP(
     () => {
-      gsap.set(iconRef.current, { transformOrigin: 'center' });
+      const mm = gsap.matchMedia();
 
-      timeline.current = gsap
-        .timeline({ paused: true })
-        .to(buttonRef.current, {
-          scale: 1.05,
-          duration: 0.3,
-          ease: 'power2.out',
-        })
-        .to(
-          iconRef.current,
-          {
-            scale: 1.2,
-            y: -2,
-            rotate: '-15deg',
+      mm.add('(min-width: 1024px)', () => {
+        gsap.set(iconRef.current, { transformOrigin: 'center' });
+
+        timeline.current = gsap
+          .timeline({ paused: true })
+          .to(buttonRef.current, {
+            scale: 1.05,
             duration: 0.3,
-            ease: 'elastic.out(1.2, 0.3)',
-          },
-          '<'
-        )
-        .to(
-          buttonRef.current,
-          {
-            boxShadow: '0 8px 24px rgba(234, 243, 55, 0.3)',
-            duration: 0.4,
-          },
-          '<'
-        );
+            ease: 'power2.out',
+          })
+          .to(
+            iconRef.current,
+            {
+              scale: 1.2,
+              y: -2,
+              rotate: '-15deg',
+              duration: 0.3,
+              ease: 'elastic.out(1.2, 0.3)',
+            },
+            '<'
+          )
+          .to(
+            buttonRef.current,
+            {
+              boxShadow: '0 8px 24px rgba(234, 243, 55, 0.3)',
+              duration: 0.4,
+            },
+            '<'
+          );
+      });
+
+      return () => mm.revert();
     },
     { scope: containerRef }
   );
 
   useGSAP(
     () => {
-      if (callStatus === 'active') {
-        // Active state animation
-        gsap.to(iconRef.current, {
-          keyframes: [
-            { scale: 1.1, y: -2, duration: 0.8, ease: 'power2.inOut' },
-            { scale: 1, y: 0, duration: 0.8, ease: 'power2.inOut' },
-          ],
-          repeat: -1,
-          yoyo: true,
-        });
+      const mm = gsap.matchMedia();
 
-        gsap.to(buttonRef.current, {
-          background: 'linear-gradient(45deg, #eaf337, #c4d32c)',
-          duration: 0.5,
-        });
-      } else if (callStatus === 'idle') {
-        // Reset to idle state
-        gsap.killTweensOf([iconRef.current, buttonRef.current]);
-        gsap.to([iconRef.current, buttonRef.current], {
-          scale: 1,
-          rotate: 0,
-          background: '#eaf337',
-          boxShadow: '0 4px 12px rgba(234, 243, 55, 0.2)',
-          duration: 0.3,
-        });
-      } else if (callStatus === 'ended') {
-        // Ended state animation
-        // gsap.to(buttonRef.current, {
-        //   background: '#666',
-        //   color: '#999',
-        //   duration: 0.5,
-        // });
-        // gsap.to(iconRef.current, {
-        //   scale: 0.9,
-        //   opacity: 0.5,
-        //   duration: 0.3,
-        // });
-      }
+      mm.add('(min-width: 1024px)', () => {
+        if (callStatus === 'active') {
+          // Active state animation
+          gsap.to(iconRef.current, {
+            keyframes: [
+              { scale: 1.1, y: -2, duration: 0.8, ease: 'power2.inOut' },
+              { scale: 1, y: 0, duration: 0.8, ease: 'power2.inOut' },
+            ],
+            repeat: -1,
+            yoyo: true,
+          });
+
+          gsap.to(buttonRef.current, {
+            background: 'linear-gradient(45deg, #eaf337, #c4d32c)',
+            duration: 0.5,
+          });
+        } else if (callStatus === 'idle') {
+          // Reset to idle state
+          gsap.killTweensOf([iconRef.current, buttonRef.current]);
+          gsap.to([iconRef.current, buttonRef.current], {
+            scale: 1,
+            rotate: 0,
+            background: '#eaf337',
+            boxShadow: '0 4px 12px rgba(234, 243, 55, 0.2)',
+            duration: 0.3,
+          });
+        }
+      });
+
+      return () => mm.revert();
     },
     { dependencies: [callStatus] }
   );

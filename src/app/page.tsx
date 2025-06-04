@@ -21,6 +21,7 @@ const Home = () => {
             url={entry.url}
             imageUrl={entry.imageUrl}
             videoUrl={entry.videoUrl}
+            videoThumbnail={entry.videoThumbnail}
             problems={entry.problems}
             // problemImage={entry.problemImage || ''}
             problemTitle='Problem'
