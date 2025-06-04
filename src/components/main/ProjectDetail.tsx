@@ -44,7 +44,7 @@ export default function ProjectDetail({
   solutionImage,
   videoUrl,
   videoThumbnail,
-  videoOverview,
+  // videoOverview,
 }: ProjectDetailProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
