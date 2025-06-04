@@ -9,7 +9,11 @@ const Footer = () => {
   return (
     <footer
       id='footer-section'
-      className='w-full p-2 md:p-10 xl:p-20 h-[512px] bg-background text-foreground border-t border-white/10 max-md:text-center'
+      className='w-full p-2 md:p-10 xl:p-20 bg-background text-foreground border-t border-white/10 max-md:text-center'
+      // style={{
+      //   minHeight: '512px',
+      //   flexShrink: 0,
+      // }}
     >
       {/* Main Footer Content */}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16'>

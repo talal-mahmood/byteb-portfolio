@@ -175,7 +175,7 @@ export default function AudioChat({
   return (
     <div
       id='video-section'
-      className='w-full h-max lg:h-[calc(100dvh-72px)] flex items-center justify-center overflow-hidden'
+      className='w-full mt-8 flex items-center justify-center overflow-hidden -mb-[50dvh]'
     >
       <div className='w-full max-w-4xl mx-auto'>
         <div
@@ -196,7 +196,7 @@ export default function AudioChat({
           <div className='flex flex-col {md:flex-row} items-center justify-between gap-6 relative z-10'>
             {/* Left side: Explanation */}
             <div className='text-center space-y-3'>
-              <div className='text-zinc-400 text-[1.5dvw]'>
+              <div className='text-zinc-400 text-lg lg:text-[1.5dvw]'>
                 <MarkdownText>{chatOverview}</MarkdownText>
               </div>
 
@@ -212,7 +212,7 @@ export default function AudioChat({
 
             {/* Right side: Button */}
             {/* Right side: Button */}
-            <div className='flex justify-center md:justify-end text-[2dvw] font-semibold'>
+            <div className='flex justify-center md:justify-end text-xl lg:text-[2dvw] font-semibold'>
               <CallButton
                 callStatus={callStatus}
                 chatTitle={chatTitle}

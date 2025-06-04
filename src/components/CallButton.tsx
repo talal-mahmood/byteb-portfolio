@@ -125,7 +125,7 @@ export default function CallButton({
         >
           <PhoneOff
             ref={iconRef}
-            className='w-[2dvw] h-[2dvw] -mb-0.5 transform transition-transform'
+            className='w-8 h-8 lg:w-[2dvw] lg:h-[2dvw] -mb-0.5 transform transition-transform'
           />
           <span>End Call</span>
           {/* Active state glow */}
@@ -144,7 +144,7 @@ export default function CallButton({
         >
           <Mic
             ref={iconRef}
-            className='w-[2dvw] h-[2dvw] -mb-0.5 transform transition-transform'
+            className='w-8 h-8 lg:w-[2dvw] lg:h-[2dvw] -mb-0.5 transform transition-transform'
           />
           <span>{callStatus === 'ended' ? 'Call Ended' : chatTitle}</span>
           {/* Hover overlay */}

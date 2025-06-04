@@ -72,11 +72,11 @@ export default function ProjectDetail({
     <section
       id={id}
       ref={sectionRef}
-      className='flex flex-col min-h-screen bg-background text-foreground '
+      className='flex flex-col min-h-screen bg-background text-foreground max-lg:px-8'
     >
       {/* Header Section */}
       <div className='h-full w-full flex  flex-col lg:flex-row-reverse items-center lg:gap-4 max-lg:mt-20'>
-        <div className='w-full px-2 md:px-0 py-5 lg:h-[calc(100dvh-64px)] flex items-center'>
+        <div className='w-full py-5 lg:h-[calc(100dvh-64px)] flex items-center'>
           <div className='relative w-full aspect-[16/9] rounded-3xl overflow-hidden'>
             <Image
               src={imageUrl!}
@@ -88,7 +88,7 @@ export default function ProjectDetail({
         </div>
 
         {/* Small Heading */}
-        <div className='px-2 md:px-0 lg:w-1/3 space-y-1 lg:space-y-4 max-lg:text-center'>
+        <div className='lg:w-1/3 space-y-1 lg:space-y-4 max-lg:text-center'>
           <h1 className='text-3xl sm:text-[3.5dvw] leading-none font-semibold'>
             <MarkdownText>{title}</MarkdownText>
           </h1>
@@ -109,21 +109,21 @@ export default function ProjectDetail({
         </div>
       </div>
       {/* Problem and Solution Sections */}
-      <div className='px-2 md:px-0 py-5'>
+      <div className='py-5'>
         <div className='grid lg:grid-cols-2 gap-8'>
           {/* Problem Section */}
-          <div className='bg-foreground text-background rounded-3xl p-8 space-y-6'>
-            <h2 className='text-3xl font-bold'>
+          <div className='bg-foreground text-background rounded-3xl px-6 py-8 sm:p-8 space-y-6'>
+            <h2 className='text-2xl lg:text-3xl font-bold'>
               <MarkdownText>{problemTitle}</MarkdownText>
             </h2>
             {problemOverview && (
-              <div className='text-lg'>
+              <div className='text-base lg:text-lg'>
                 <MarkdownText>{problemOverview}</MarkdownText>
               </div>
             )}
             <ul className='space-y-4 pl-6 list-disc'>
               {problems.map((item, idx) => (
-                <li key={idx} className='text-lg'>
+                <li key={idx} className='text-base lg:text-lg'>
                   <MarkdownText>{item}</MarkdownText>
                 </li>
               ))}
@@ -141,18 +141,18 @@ export default function ProjectDetail({
           </div>
 
           {/* Solution Section */}
-          <div className='bg-bright-yellow text-background rounded-3xl p-8 space-y-6'>
-            <h2 className='text-3xl font-bold'>
+          <div className='bg-bright-yellow text-background rounded-3xl px-6 py-8 sm:p-8 space-y-6'>
+            <h2 className='text-2xl lg:text-3xl font-bold'>
               <MarkdownText>{solutionTitle}</MarkdownText>
             </h2>
             {solutionOverview && (
-              <div className='text-lg'>
+              <div className='text-base lg:text-lg'>
                 <MarkdownText>{solutionOverview}</MarkdownText>
               </div>
             )}
             <ul className='space-y-4 pl-6 list-disc'>
               {solutions.map((item, idx) => (
-                <li key={idx} className='text-lg'>
+                <li key={idx} className='text-base lg:text-lg'>
                   <MarkdownText>{item}</MarkdownText>
                 </li>
               ))}
@@ -180,16 +180,16 @@ export default function ProjectDetail({
               chatOverview='Experience our solution firsthand with a live conversation. Talk to Robert, a frustrated patient and try to diagnose and solve their problems!'
             />
           ) : (
-            <div className='px-2 md:px-0 lg:h-[calc(100dvh-64px)] flex items-center'>
+            <div className='{lg:h-[calc(100dvh-64px)]} flex items-center rounded-2xl my-8'>
               <div className='mx-auto min-w-full min-h-full'>
-                <div className='text-center mb-8'>
+                {/* <div className='text-center mb-8'>
                   {videoOverview && (
                     <div className='text-xl text-zinc-400'>
                       <MarkdownText>{videoOverview}</MarkdownText>
                     </div>
                   )}
-                </div>
-                <div className='aspect-[20/9] rounded-2xl overflow-hidden min-w-full min-h-full'>
+                </div> */}
+                <div className='aspect-[16/9] lg:aspect-[20/9] rounded-2xl overflow-hidden min-w-full min-h-full bg-gradient-to-t from-white/0 to-white/20 backdrop-blur-xl'>
                   <video
                     ref={videoRef}
                     className='w-full h-full'

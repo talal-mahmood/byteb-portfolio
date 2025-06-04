@@ -88,7 +88,7 @@ export function HeroSection() {
     <section
       ref={heroRef}
       id='hero-section'
-      className='w-full relative bg-background text-foreground flex flex-col lg:flex-row items-center p-2 md:px-10 lg:px-0 {xl:p-20} mt-[64px] min-h-max h-[calc(100dvh-64px)] overflow-hidden gap-x-4'
+      className='w-full relative bg-background text-foreground flex flex-col lg:flex-row items-center p-6 md:px-10 lg:px-0 {xl:p-20} mt-[64px] min-h-max h-[calc(100dvh-64px)] overflow-hidden gap-x-4'
     >
       <div className='relative w-full lg:max-w-1/2'>
         <h1
@@ -101,7 +101,7 @@ export function HeroSection() {
         </h1>
         <p
           id='tagline'
-          className='mb-4 text-[3.36dvw] sm:text-lg font-semibold bg-foreground text-background rounded-full py-1 px-2 w-max flex justify-center'
+          className='mb-4 text-[3dvw] sm:text-lg font-semibold bg-foreground text-background rounded-full py-1 px-2 w-max flex justify-center'
         >
           <span id='part-1' className='part text-nowrap'>
             AI.{' '}
@@ -118,7 +118,7 @@ export function HeroSection() {
         </p>
         <p
           id='description'
-          className='mt-6 text-lg sm:text-xl font-light text-[#BEA6B0] lg:text-[1.39dvw]'
+          className='mt-6 text-lg sm:text-xl font-light text-foreground lg:text-[1.39dvw]'
         >
           From chatbots to automation and on-premise models, we craft AI that
           fits your business, protects your data, and accelerates your
@@ -138,7 +138,7 @@ export function HeroSection() {
         <h1
           id='right-text'
           ref={rightTextRef}
-          className='font-semibold text-xl sm:text-2xl md:text-3xl leading-tight tracking-tight bg-white/10 p-10 rounded-4xl lg:text-[2.08dvw]'
+          className='font-semibold text-xl sm:text-2xl md:text-3xl leading-tight tracking-tight bg-white/10 p-6 md:p-8 lg:p-10 rounded-4xl'
         >
           Our product development offers maximum value at minimum cost! We serve
           with our heart: Averaging a perfect satisfaction score as we not only
