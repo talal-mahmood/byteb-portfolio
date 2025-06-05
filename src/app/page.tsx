@@ -30,7 +30,6 @@ const Home = () => {
             // solutionImage={entry.solutionImage || ''}
             solutionTitle='Solution'
             solutionOverview={entry.solutionOverview}
-            bgColor={index % 2 !== 0 ? 'bg-background' : 'max-lg:bg-white/10'}
           />
         </div>
       ))}

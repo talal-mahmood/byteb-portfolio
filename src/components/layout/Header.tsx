@@ -131,11 +131,11 @@ const Header = () => {
     const extraOffset = 0;
     // 236;
 
-    const top =
-      (target as HTMLElement).getBoundingClientRect().top +
-      window.scrollY -
-      headerOffset +
-      extraOffset;
+    // const top =
+    //   (target as HTMLElement).getBoundingClientRect().top +
+    //   window.scrollY -
+    //   headerOffset +
+    //   extraOffset;
 
     // // Let Lenis do the smooth scrolling
     // lenis?.scrollTo(top, {
@@ -222,7 +222,7 @@ const Header = () => {
       {/* Header */}
       <header
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-40 lg:max-w-[calc(85dvw+1px)] mx-auto transition-all duration-300 px-6 ${
+        className={`fixed top-0 left-0 right-0 z-40 lg:max-w-[calc(85dvw+1px)] mx-auto transition-all duration-300 px-4 ${
           scrolled
             ? 'bg-background/90 backdrop-blur-md shadow-md py-3'
             : 'bg-background py-4'

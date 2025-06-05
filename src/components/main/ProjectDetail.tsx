@@ -25,7 +25,6 @@ interface ProjectDetailProps {
   videoThumbnail?: string
   videoTitle?: string
   videoOverview?: string
-  bgColor?: string
 }
 
 export default function ProjectDetail({
@@ -44,7 +43,6 @@ export default function ProjectDetail({
   solutionImage,
   videoUrl,
   videoThumbnail,
-  bgColor,
 }: ProjectDetailProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -105,7 +103,7 @@ export default function ProjectDetail({
         {/* Mobile: Stacked Layout, Desktop: Side by Side */}
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Problem Section */}
-          <div className="bg-foreground text-background rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+          <div className="bg-foreground text-background rounded-3xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold">
               <MarkdownText>{problemTitle}</MarkdownText>
             </h2>
@@ -139,7 +137,7 @@ export default function ProjectDetail({
           </div>
 
           {/* Solution Section */}
-          <div className="bg-bright-yellow text-background rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+          <div className="bg-bright-yellow text-background rounded-3xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold">
               <MarkdownText>{solutionTitle}</MarkdownText>
             </h2>
@@ -178,7 +176,7 @@ export default function ProjectDetail({
       {videoUrl && (
         <>
           {id === "smart-plab-assistant" ? (
-            <div className="px-4 sm:px-6">
+            <div className="sm:px-6">
               <AudioChat
                 assistantId={process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID}
                 chatTitle="Talk to Robert"

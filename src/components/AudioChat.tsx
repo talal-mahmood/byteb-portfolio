@@ -175,7 +175,7 @@ export default function AudioChat({
   return (
     <div
       id='video-section'
-      className='w-full my-6 flex items-center justify-center overflow-hidden'
+      className='w-full mt-4 flex items-center justify-center overflow-hidden'
     >
       <div className='w-full mx-auto'>
         <div
