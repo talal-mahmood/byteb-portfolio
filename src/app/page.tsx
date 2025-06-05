@@ -11,7 +11,7 @@ const Home = () => {
       <HeroSection />
       {/* <ProjectsSection /> */}
 
-      {PROJECT_DATA.map((entry, index) => (
+      {PROJECT_DATA.map((entry) => (
         <div key={entry.id} id={entry.id}>
           <ProjectDetail
             id={entry.id}

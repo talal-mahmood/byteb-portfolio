@@ -127,8 +127,8 @@ const Header = () => {
     if (!target) return;
 
     // Calculate final scroll position (minus your header height)
-    const headerOffset = 72;
-    const extraOffset = 0;
+    // const headerOffset = 72;
+    // const extraOffset = 0;
     // 236;
 
     // const top =
