@@ -175,12 +175,12 @@ export default function AudioChat({
   return (
     <div
       id='video-section'
-      className='w-full my-6 flex items-center justify-center overflow-hidden max-lg:px-6'
+      className='w-full my-6 flex items-center justify-center overflow-hidden'
     >
-      <div className='w-full max-w-4xl mx-auto'>
+      <div className='w-full mx-auto'>
         <div
           ref={containerRef}
-          className='relative bg-foreground/6 backdrop-blur-md rounded-3xl p-8 shadow-lg overflow-hidden'
+          className='relative bg-foreground/6 backdrop-blur-md rounded-3xl p-8 shadow-lg overflow-hidden w-full'
         >
           {/* Audio Visualizer Background */}
           {callStatus === 'active' && (
@@ -196,7 +196,7 @@ export default function AudioChat({
           <div className='flex flex-col {md:flex-row} items-center justify-between gap-6 relative z-10'>
             {/* Left side: Explanation */}
             <div className='text-center space-y-3'>
-              <div className='text-zinc-400 text-lg lg:text-[1.5dvw]'>
+              <div className='text-zinc-400 text-sm lg:text-[1.5dvw]'>
                 <MarkdownText>{chatOverview}</MarkdownText>
               </div>
 
@@ -212,7 +212,7 @@ export default function AudioChat({
 
             {/* Right side: Button */}
             {/* Right side: Button */}
-            <div className='flex justify-center md:justify-end text-xl lg:text-[2dvw] font-semibold'>
+            <div className='flex justify-center md:justify-end text-lg lg:text-[2dvw] font-semibold'>
               <CallButton
                 callStatus={callStatus}
                 chatTitle={chatTitle}

@@ -16,7 +16,7 @@ const Footer = () => {
       // }}
     >
       {/* Main Footer Content */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16'>
         {/* Company Info */}
         <div className='space-y-4 lg:max-w-xs max-md:flex flex-col items-center'>
           <h3 className='text-xl font-bold'>bytebricks</h3>
@@ -29,7 +29,7 @@ const Footer = () => {
               href='https://calendly.com/muhammad-inam-f0mv/30min?month=2025-05'
               target='_blank'
               rel='noopener noreferrer'
-              className='bg-[#eaf337] justify-center rounded-lg text-background font-semibold gap-2 hover:bg-[#eaf337]/90 inline-flex items-center px-6 py-3 transition-colors m-auto'
+              className='bg-[#eaf337] justify-center rounded-lg text-background font-semibold gap-2 hover:bg-[#eaf337]/90 inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 transition-colors m-auto'
             >
               Schedule a Call
               <ExternalLink className='ml-2 w-4 h-4' />
@@ -38,7 +38,7 @@ const Footer = () => {
         </div>
 
         {/* Contact Info */}
-        <div className='space-y-5'>
+        <div className='sm:space-y-5 space-y-2'>
           <h3 className='text-lg font-semibold'>Contact</h3>
           <ul className='space-y-3 max-md:flex flex-col items-center'>
             <li className='flex items-center gap-2 text-zinc-400 text-sm'>
@@ -53,7 +53,7 @@ const Footer = () => {
         </div>
 
         {/* Social Links */}
-        <div className='space-y-5 max-md:flex flex-col max-md:items-center'>
+        <div className='sm:space-y-5 space-y-2 max-md:flex flex-col max-md:items-center'>
           <h3 className='text-lg font-semibold'>Follow Us</h3>
           <div className='flex max-md:items-center gap-4'>
             <motion.a
@@ -78,7 +78,7 @@ const Footer = () => {
         </div>
 
         {/* Resources + CTA */}
-        <div className='space-y-6'>
+        <div className='sm:space-y-6 space-y-2'>
           <div>
             <h3 className='text-lg font-semibold'>Resources</h3>
             <ul className='mt-3 space-y-2 text-sm text-zinc-400'>
@@ -122,7 +122,7 @@ const Footer = () => {
           href='https://calendly.com/muhammad-inam-f0mv/30min?month=2025-05'
           target='_blank'
           rel='noopener noreferrer'
-          className='bg-[#eaf337] justify-center rounded-lg text-background font-semibold gap-2 hover:bg-[#eaf337]/90 inline-flex items-center px-6 py-3 transition-colors m-auto'
+          className='bg-[#eaf337] justify-center rounded-lg text-background font-semibold gap-2 hover:bg-[#eaf337]/90 inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 transition-colors m-auto'
         >
           Schedule a Call
           <ExternalLink className='ml-2 w-4 h-4' />

@@ -88,12 +88,12 @@ export function HeroSection() {
     <section
       ref={heroRef}
       id='hero-section'
-      className='w-full relative bg-background text-foreground flex flex-col lg:flex-row items-center p-6 md:px-10 lg:px-0 {xl:p-20} mt-[64px] min-h-max lg:h-[calc(100dvh-64px)] overflow-hidden gap-x-4'
+      className='w-full relative bg-background text-foreground flex flex-col lg:flex-row items-center p-2 md:px-10 lg:px-0 {xl:p-20} mt-[64px] min-h-max lg:h-[calc(100dvh-64px)] overflow-hidden gap-x-4 {max-sm:h-[calc(100dvh-100px)]}'
     >
       <div className='relative w-full lg:max-w-1/2'>
         <h1
           id='main-heading'
-          className='mb-4 font-bold text-4xl sm:text-5xl md:text-6xl leading-tight tracking-tight text-[#fffffe] lg:text-[4dvw]'
+          className='mb-2 sm:mb-4 font-medium md:font-bold text-3xl sm:text-4xl md:text-6xl leading-tight tracking-tight text-[#fffffe] lg:text-[4dvw]'
         >
           We Build Intuitive, Secure AI Solutions{' '}
           <br className='block {sm:hidden}' />
@@ -101,7 +101,7 @@ export function HeroSection() {
         </h1>
         <p
           id='tagline'
-          className='mb-4 text-[3dvw] sm:text-lg font-semibold bg-foreground text-background rounded-full py-1 px-2 w-max flex justify-center'
+          className='mb-2 sm:mb-4 text-[3dvw] sm:text-lg font-semibold bg-foreground text-background rounded-full py-1 px-2 w-max flex justify-center'
         >
           <span id='part-1' className='part text-nowrap'>
             AI.{' '}
@@ -118,27 +118,27 @@ export function HeroSection() {
         </p>
         <p
           id='description'
-          className='mt-6 text-lg sm:text-xl font-light text-foreground lg:text-[1.39dvw]'
+          className='mt-2 sm:mt-6 sm:text-xl font-light text-foreground lg:text-[1.39dvw]'
         >
           From chatbots to automation and on-premise models, we craft AI that
           fits your business, protects your data, and accelerates your
           growth—with ethics and experience at the core.
         </p>
 
-        <div id='button-container' className='mt-8 gap-4'>
+        <div id='button-container' className='mt-2 sm:mt-8 gap-4'>
           <a
             href='https://calendly.com/muhammad-inam-f0mv/30min?month=2025-05'
-            className='inline-flex items-center gap-2 bg-bright-yellow text-background font-medium rounded-lg px-6 py-3 hover:scale-[0.98] active:scale-[0.95] transition-transform duration-200 ease-in-out lg:text-[1.11dvw]'
+            className='inline-flex items-center gap-2 bg-bright-yellow text-background font-medium rounded-lg px-4 py-2 sm:px-6 sm:py-3 hover:scale-[0.98] active:scale-[0.95] transition-transform duration-200 ease-in-out lg:text-[1.11dvw]'
           >
             Schedule a Call
           </a>
         </div>
       </div>
-      <div className='w-full lg:max-w-1/2 max-lg:mt-12'>
+      <div className='w-full lg:max-w-1/2 mt-4 sm:mt-12 lg:m-0'>
         <h1
           id='right-text'
           ref={rightTextRef}
-          className='font-semibold text-xl sm:text-2xl md:text-3xl leading-tight tracking-tight bg-white/10 p-6 md:p-8 lg:p-10 rounded-4xl'
+          className='font-semibold text-lg sm:text-2xl md:text-3xl leading-tight tracking-tight bg-white/10 p-6 md:p-8 lg:p-10 rounded-4xl'
         >
           Our product development offers maximum value at minimum cost! We serve
           with our heart: Averaging a perfect satisfaction score as we not only

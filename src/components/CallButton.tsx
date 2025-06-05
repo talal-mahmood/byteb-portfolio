@@ -121,11 +121,11 @@ export default function CallButton({
           onClick={onEnd}
           onMouseEnter={handleHover}
           onMouseLeave={handleHoverEnd}
-          className='bg-foreground text-background rounded-full px-8 py-6 flex items-center gap-2 shadow-lg relative overflow-hidden'
+          className='bg-foreground text-background rounded-full px-4 py-3 sm:px-8 sm:py-6 flex items-center gap-2 shadow-lg relative overflow-hidden'
         >
           <PhoneOff
             ref={iconRef}
-            className='w-8 h-8 lg:w-[2dvw] lg:h-[2dvw] -mb-0.5 transform transition-transform'
+            className='w-6 h-6 lg:w-[2dvw] lg:h-[2dvw] -mb-0.5 transform transition-transform'
           />
           <span>End Call</span>
           {/* Active state glow */}
@@ -140,11 +140,11 @@ export default function CallButton({
           disabled={callStatus === 'ended'}
           onMouseEnter={handleHover}
           onMouseLeave={handleHoverEnd}
-          className='bg-bright-yellow text-background rounded-full px-8 py-6 flex items-center gap-2 shadow-lg relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed'
+          className='bg-bright-yellow text-background rounded-full px-4 py-3 sm:px-8 sm:py-6 flex items-center gap-2 shadow-lg relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed'
         >
           <Mic
             ref={iconRef}
-            className='w-8 h-8 lg:w-[2dvw] lg:h-[2dvw] -mb-0.5 transform transition-transform'
+            className='w-6 h-6 lg:w-[2dvw] lg:h-[2dvw] -mb-0.5 transform transition-transform'
           />
           <span>{callStatus === 'ended' ? 'Call Ended' : chatTitle}</span>
           {/* Hover overlay */}

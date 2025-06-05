@@ -5,7 +5,7 @@ import type React from 'react';
 import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useLenis } from 'lenis/react';
+// import { useLenis } from 'lenis/react';
 // import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, ExternalLink } from 'lucide-react';
@@ -24,7 +24,7 @@ const NAV_ITEMS = [
 ];
 
 const Header = () => {
-  const lenis = useLenis();
+  // const lenis = useLenis();
   const drawerRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
@@ -137,11 +137,11 @@ const Header = () => {
       headerOffset +
       extraOffset;
 
-    // Let Lenis do the smooth scrolling
-    lenis?.scrollTo(top, {
-      duration: 1,
-      easing: (t) => t, // linear timing; tweak to taste
-    });
+    // // Let Lenis do the smooth scrolling
+    // lenis?.scrollTo(top, {
+    //   duration: 1,
+    //   easing: (t) => t, // linear timing; tweak to taste
+    // });
 
     // Update URL & close drawer immediately
     window.history.pushState(null, '', hash);

@@ -11,7 +11,7 @@ const Home = () => {
       <HeroSection />
       {/* <ProjectsSection /> */}
 
-      {PROJECT_DATA.map((entry) => (
+      {PROJECT_DATA.map((entry, index) => (
         <div key={entry.id} id={entry.id}>
           <ProjectDetail
             id={entry.id}
@@ -30,6 +30,7 @@ const Home = () => {
             // solutionImage={entry.solutionImage || ''}
             solutionTitle='Solution'
             solutionOverview={entry.solutionOverview}
+            bgColor={index % 2 !== 0 ? 'bg-background' : 'max-lg:bg-white/10'}
           />
         </div>
       ))}
