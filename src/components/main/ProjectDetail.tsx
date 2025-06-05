@@ -67,7 +67,7 @@ export default function ProjectDetail({
   }
 
   return (
-    <section id={id} ref={sectionRef} className={`flex flex-col text-foreground bg-background {bgColor} .max-lg:min-h-max max-lg:bg-white/10 max-lg:p-2 max-lg:rounded-3xl max-lg:mt-4`}>
+    <section id={id} ref={sectionRef} className={`flex flex-col text-foreground bg-background {bgColor} .max-lg:min-h-max max-lg:bg-white/10 max-lg:p-2 max-lg:rounded-[30px] max-lg:mt-4`}>
       {/* Header Section */}
       <div className="h-full w-full flex flex-col lg:flex-row-reverse items-center lg:gap-4 {max-lg:mt-10}">
         <div className="w-full md:py-5 lg:h-[calc(100dvh-64px)] flex items-center">
@@ -99,7 +99,7 @@ export default function ProjectDetail({
       </div>
 
       {/* Problem and Solution Sections - Mobile Optimized */}
-      <div className="pt-6 sm:px-6">
+      <div className="pt-6 lg:px-6">
         {/* Mobile: Stacked Layout, Desktop: Side by Side */}
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Problem Section */}
@@ -176,7 +176,7 @@ export default function ProjectDetail({
       {videoUrl && (
         <>
           {id === "smart-plab-assistant" ? (
-            <div className="sm:px-6">
+            <div className="lg:px-6">
               <AudioChat
                 assistantId={process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID}
                 chatTitle="Talk to Robert"
@@ -184,7 +184,7 @@ export default function ProjectDetail({
               />
             </div>
           ) : (
-            <div className="flex items-center rounded-3xl mt-4 sm:my-6 sm:px-6">
+            <div className="flex items-center rounded-3xl mt-4 lg:my-6 lg:px-6">
               <div className="mx-auto w-full">
                 <div className="aspect-[16/9] sm:aspect-[16/9] lg:aspect-[20/9] rounded-3xl overflow-hidden w-full bg-white/10 backdrop-blur-xl">
                   <video

@@ -77,7 +77,7 @@ const Header = () => {
             trigger: section,
             start: 'bottom top+=50%',
             end: 'top bottom+=50%',
-            onEnter: () => setActiveHash(NAV_ITEMS[i]?.hash || ''),
+            onEnter: () => setActiveHash(NAV_ITEMS[i+1]?.hash || ''),
             onEnterBack: () => setActiveHash(NAV_ITEMS[i - 1]?.hash || ''),
           });
         });
