@@ -6,7 +6,7 @@ import {
 import localFont from 'next/font/local';
 import './globals.css';
 import Layout from '@/components/Layout';
-import SmoothScroll from '@/components/SmoothScroll';
+// import SmoothScroll from '@/components/SmoothScroll';
 // import Head from 'next/head';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -92,13 +92,13 @@ export default function RootLayout({
       {/* <Head>
         <link rel='icon' href='/portfolio/logo.png' />
       </Head> */}
-      <SmoothScroll>
+      {/* <SmoothScroll> */}
         <body
           className={`${plusJakartaSans.variable} ${crosstenSoft.variable} {geistSans.variable} {geistMono.variable} antialiased`}
         >
           <Layout>{children}</Layout>
         </body>
-      </SmoothScroll>
+      {/* </SmoothScroll> */}
     </html>
   );
 }
