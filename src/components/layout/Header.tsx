@@ -120,28 +120,22 @@ const Header = () => {
     setDrawerOpen(!drawerOpen);
   }
 
-  // Smooth scroll to section using Lenis
+  // Smooth scroll to section using standard scrollTo
   function handleClick(e: React.MouseEvent, hash: string) {
     e.preventDefault();
     const target = document.querySelector(hash);
     if (!target) return;
 
-    // Calculate final scroll position (minus your header height)
-    // const headerOffset = 72;
-    // const extraOffset = 0;
-    // 236;
+    // Calculate the scroll position with header offset
+    const headerOffset = 72; // Adjust this value based on your header height
+    const elementPosition = (target as HTMLElement).getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-    // const top =
-    //   (target as HTMLElement).getBoundingClientRect().top +
-    //   window.scrollY -
-    //   headerOffset +
-    //   extraOffset;
-
-    // // Let Lenis do the smooth scrolling
-    // lenis?.scrollTo(top, {
-    //   duration: 1,
-    //   easing: (t) => t, // linear timing; tweak to taste
-    // });
+    // Smooth scroll to the target
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
 
     // Update URL & close drawer immediately
     window.history.pushState(null, '', hash);

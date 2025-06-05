@@ -19,6 +19,7 @@ const Layout = ({
     <div className='flex flex-col h-[100dvh] lg:max-w-[85dvw] mx-auto bg-background'>
       {showHeader && <Header />}
       <Content show={showFooter}>{children}</Content>
+      {showFooter && <Footer />}
     </div>
   );
 };
