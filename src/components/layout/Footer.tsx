@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <footer
       id='footer-section'
-      className='w-full py-2 px-8 md:p-10 xl:p-20 bg-background text-foreground border-t border-white/10 max-md:text-center'
+      className='w-full py-2 px-6 md:p-10 xl:p-20 bg-background text-foreground border-t border-white/10 max-md:text-center'
       // style={{
       //   minHeight: '512px',
       //   flexShrink: 0,
@@ -130,7 +130,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className='pt-8 mt-8 border-t border-white/10'>
+      <div className='pt-8 mt-6 border-t border-white/10'>
         <div className='flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0'>
           <p className='text-zinc-400 text-sm'>
             © {currentYear} bytebricks. All rights reserved.

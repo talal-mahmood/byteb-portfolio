@@ -88,7 +88,7 @@ export function HeroSection() {
     <section
       ref={heroRef}
       id='hero-section'
-      className='w-full relative bg-background text-foreground flex flex-col lg:flex-row items-center p-6 md:px-10 lg:px-0 {xl:p-20} mt-[64px] min-h-max h-[calc(100dvh-64px)] overflow-hidden gap-x-4'
+      className='w-full relative bg-background text-foreground flex flex-col lg:flex-row items-center p-6 md:px-10 lg:px-0 {xl:p-20} mt-[64px] min-h-max lg:h-[calc(100dvh-64px)] overflow-hidden gap-x-4'
     >
       <div className='relative w-full lg:max-w-1/2'>
         <h1

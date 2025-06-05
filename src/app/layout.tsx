@@ -96,7 +96,7 @@ export default function RootLayout({
         <body
           className={`${plusJakartaSans.variable} ${crosstenSoft.variable} {geistSans.variable} {geistMono.variable} antialiased`}
         >
-          <Layout showSidebar={false}>{children}</Layout>
+          <Layout>{children}</Layout>
         </body>
       </SmoothScroll>
     </html>

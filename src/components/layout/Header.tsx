@@ -222,13 +222,13 @@ const Header = () => {
       {/* Header */}
       <header
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-40 lg:max-w-[calc(85dvw+1px)] mx-auto transition-all duration-300 px-4 ${
+        className={`fixed top-0 left-0 right-0 z-40 lg:max-w-[calc(85dvw+1px)] mx-auto transition-all duration-300 px-6 ${
           scrolled
             ? 'bg-background/90 backdrop-blur-md shadow-md py-3'
             : 'bg-background py-4'
         }`}
       >
-        <div className='px-2 sm:px-4 lg:px-0 {12} flex items-center justify-between'>
+        <div className=':px-2 md:px-4 lg:px-0 {12} flex items-center justify-between'>
           {/* Logo */}
           <Link href='/' className='flex items-center'>
             {/* <Image
@@ -290,7 +290,7 @@ const Header = () => {
 
             <button
               onClick={toggleDrawer}
-              className='lg:hidden p-2 rounded-lg hover:bg-foreground/10 transition-colors'
+              className='lg:hidden py-2 pl-2 pr-0 rounded-lg hover:bg-foreground/10 transition-colors'
               aria-label='Open menu'
             >
               <Menu className='w-6 h-6' />
