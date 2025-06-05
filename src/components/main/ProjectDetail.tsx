@@ -67,7 +67,7 @@ export default function ProjectDetail({
   }
 
   return (
-    <section id={id} ref={sectionRef} className={`flex flex-col text-foreground bg-background {bgColor} .max-lg:min-h-max max-lg:bg-white/10 max-lg:p-2 max-lg:rounded-3xl max-lg:mt-4`}>
+    <section id={id} ref={sectionRef} className={`flex flex-col text-foreground bg-background {bgColor} .max-lg:min-h-max max-lg:bg-white/10 max-lg:p-2 rounded-[30px] max-lg:mt-4`}>
       {/* Header Section */}
       <div className="h-full w-full flex flex-col lg:flex-row-reverse items-center lg:gap-4 {max-lg:mt-10}">
         <div className="w-full md:py-5 lg:h-[calc(100dvh-64px)] flex items-center">
